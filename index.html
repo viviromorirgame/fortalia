@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Fortalia%22%2C%22short_name%22%3A%22Fortalia%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%232d3a1e%22%2C%22theme_color%22%3A%22%232d3a1e%22%7D">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#2d3a1e" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Fortalia" />
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Fortalia%22%2C%22short_name%22%3A%22Fortalia%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%232d3a1e%22%2C%22theme_color%22%3A%22%232d3a1e%22%7D">
   <title>FORTALIA — Guardianes del Castillo (Edición Militar)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Special+Elite&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -21,7 +21,6 @@
       --khaki-border: #b8ad96;
     }
 
-    /* Fondo de Camuflaje Militar Vectorial Integrado */
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #3b4d28;
@@ -35,19 +34,15 @@
     .font-military { font-family: 'Black Ops One', cursive; letter-spacing: 0.04em; }
     .font-typewriter { font-family: 'Special Elite', monospace; }
 
-    /* Contenedor central estilo lienzo/papel táctico */
     .tactical-canvas {
       background-color: var(--paper-bg);
       background-image: radial-gradient(rgba(58, 38, 24, 0.05) 1px, transparent 0);
       background-size: 18px 18px;
       border: 4px solid #3a2618;
-      box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.65),
-        inset 0 0 40px rgba(139, 115, 85, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 0 40px rgba(139, 115, 85, 0.25);
       position: relative;
     }
 
-    /* Tarjetas tácticas estilo expediente militar */
     .dossier-card {
       background-color: var(--paper-card);
       border: 2px solid #8c7f67;
@@ -101,13 +96,8 @@
     }
 
     .bar-fill { transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .modal-bg { background: rgba(22, 28, 14, 0.84); backdrop-filter: blur(6px); }
 
-    .modal-bg {
-      background: rgba(22, 28, 14, 0.84);
-      backdrop-filter: blur(6px);
-    }
-
-    /* Etiqueta tipo chapa metálica / identificación militar */
     .dog-tag {
       background: linear-gradient(135deg, #d6d3cb 0%, #a8a296 100%);
       border: 1.5px solid #4a463f;
@@ -118,27 +108,25 @@
 </head>
 <body class="p-2 sm:p-4 md:p-6 pb-24 selection:bg-[#3c4f24] selection:text-[#f5f0e4]">
 
-  <!-- MARCO PRINCIPAL CON ESTÉTICA DE LIENZO TÁCTICO SOBRE FONDO DE CAMUFLAJE -->
   <div class="max-w-4xl mx-auto tactical-canvas rounded-2xl overflow-hidden">
-
-    <!-- BANDA SUPERIOR DE CAMUFLAJE TÁCTICO -->
     <div class="h-3 bg-gradient-to-r from-[#253614] via-[#4e3524] to-[#435929] border-b-2 border-[#3a2618]"></div>
 
-    <!-- CABECERA DEL CUARTEL GENERAL (SOLO TÍTULO E IDENTIDAD) -->
     <header class="border-b-2 border-[#8c7f67] bg-[#e4dbc6]/95 px-4 py-5 md:px-6 text-center relative">
-      <!-- Controles Superiores de Radio y Cronómetro de Campaña -->
       <div class="flex items-center justify-between mb-3">
         <button onclick="openCastleSyncModal()" id="castleCodeBadge" class="cursor-pointer dog-tag text-[11px] font-extrabold px-2.5 py-1 rounded uppercase tracking-wider flex items-center gap-1 hover:brightness-95 transition">
           📻 Frecuencia: LOCAL
         </button>
         <div class="flex items-center gap-1.5">
-          <button onclick="syncNow()" title="Sincronizar con la nube" class="btn-sand px-2.5 py-1 rounded text-xs font-extrabold cursor-pointer">
-            🔄
+          <button onclick="forceReceiveCloud()" title="Recibir Transmisión de la Nube" class="btn-amber-tactical px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
+            <span>📥</span> <span class="hidden sm:inline">Recibir</span>
+          </button>
+          <button onclick="forceTransmitCloud()" title="Transmitir Informe a la Nube" class="btn-army px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
+            <span>📡</span> <span class="hidden sm:inline">Transmitir</span>
           </button>
           <button onclick="openChronicleModal()" class="btn-sand px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
             <span>⏱️</span> <span id="headerCycleShort">Sem. #1</span>
           </button>
-          <button onclick="openInfoModal()" title="Manual de Operaciones y Logros" class="btn-amber-tactical px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
+          <button onclick="openInfoModal()" title="Manual de Operaciones" class="btn-sand px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
             <span>ℹ️</span> <span class="hidden sm:inline">Info</span>
           </button>
         </div>
@@ -153,13 +141,9 @@
       <p class="font-typewriter text-sm sm:text-base font-bold text-[#4e3524] tracking-widest uppercase mt-1.5">
         Guardianes del Castillo
       </p>
-
     </header>
 
-    <!-- CUERPO PRINCIPAL: ESCUADRÓN, ALISTAMIENTO Y ACCESO AL TABLÓN DE MISIONES -->
     <main class="p-4 md:p-6 space-y-6">
-
-      <!-- BARRA DE ESCUADRÓN Y ALISTAMIENTO -->
       <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-dashed border-[#b8ad96] pb-3">
         <div class="flex items-center gap-2">
           <h2 class="font-military text-lg md:text-xl text-[#253317] uppercase flex items-center gap-2">
@@ -169,124 +153,83 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-          <button onclick="openSearchUserModal()" class="btn-sand text-xs font-extrabold px-3 py-1.5 rounded-lg cursor-pointer">
-            🔍 Buscar @id
-          </button>
+          <button onclick="openSearchUserModal()" class="btn-sand text-xs font-extrabold px-3 py-1.5 rounded-lg cursor-pointer">🔍 Buscar @id</button>
           <button onclick="openGuardianModal()" class="btn-army text-xs font-extrabold px-3.5 py-1.5 rounded-lg flex items-center gap-1 cursor-pointer uppercase">
             <span>➕</span> Alistar Efectivo
           </button>
         </div>
       </div>
 
-      <!-- TARJETAS DE LOS EFECTIVOS / GUARDIANES -->
       <div id="guardiansGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
 
-      <!-- BOTÓN TÁCTICO PRINCIPAL: MISIONES Y SUMINISTROS -->
       <div class="pt-2">
         <button onclick="openMissionsBoardModal('all')" class="w-full btn-army py-4 px-6 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3 cursor-pointer group">
           <div class="flex items-center gap-3.5">
             <span class="text-3xl group-hover:scale-110 transition">📋</span>
             <div class="text-left">
-              <div class="font-military text-lg md:text-xl tracking-wider uppercase text-[#f5f0e4]">
-                Misiones y Suministros
-              </div>
-              <div class="text-xs text-[#dfd5c0] font-semibold">
-                Desplegar órdenes de Instrucción Física, Mantenimiento de Base y Lista de Suministros
-              </div>
+              <div class="font-military text-lg md:text-xl tracking-wider uppercase text-[#f5f0e4]">Misiones y Suministros</div>
+              <div class="text-xs text-[#dfd5c0] font-semibold">Desplegar órdenes de Instrucción Física, Mantenimiento de Base y Lista de Suministros</div>
             </div>
           </div>
           <div class="flex items-center gap-2 shrink-0">
-            <span id="missionsCounterPill" class="px-3 py-1 rounded-lg bg-[#253317] border border-[#8c7f67] text-xs font-extrabold text-amber-300">
-              0 Activas
-            </span>
-            <span class="px-3 py-1.5 rounded-lg bg-[#c27803] text-white text-xs font-extrabold uppercase border border-[#3a2618]">
-              Abrir Tablón ➜
-            </span>
+            <span id="missionsCounterPill" class="px-3 py-1 rounded-lg bg-[#253317] border border-[#8c7f67] text-xs font-extrabold text-amber-300">0 Activas</span>
+            <span class="px-3 py-1.5 rounded-lg bg-[#c27803] text-white text-xs font-extrabold uppercase border border-[#3a2618]">Abrir Tablón ➜</span>
           </div>
         </button>
       </div>
-
     </main>
 
-    <!-- BANDA INFERIOR DECORATIVA -->
     <div class="h-3 bg-gradient-to-r from-[#435929] via-[#4e3524] to-[#253614] border-t-2 border-[#3a2618]"></div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL PRINCIPAL: TABLÓN DE MISIONES Y SUMINISTROS          -->
-  <!-- (Clasificación: Todas / Instrucción Física / Base y Sum.)  -->
-  <!-- ========================================================= -->
+  <!-- MODAL: TABLÓN DE MISIONES -->
   <div id="missionsBoardModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-2 sm:p-4">
     <div class="tactical-canvas rounded-2xl max-w-3xl w-full p-4 sm:p-6 space-y-4 max-h-[94vh] flex flex-col">
-      <!-- Cabecera del Modal de Misiones -->
       <div class="flex flex-wrap items-center justify-between gap-2 border-b-2 border-[#8c7f67] pb-3 shrink-0">
         <div>
           <h3 class="font-military text-xl sm:text-2xl text-[#253317] uppercase flex items-center gap-2">
             <span>📋</span> Misiones y Suministros
           </h3>
-          <p class="text-xs text-[#4e3524] font-bold">
-            Filtra por área operativa o dicta nuevas órdenes para el escuadrón
-          </p>
+          <p class="text-xs text-[#4e3524] font-bold">Filtra por área operativa o dicta nuevas órdenes para el escuadrón</p>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="openTaskModal()" class="btn-amber-tactical px-3.5 py-2 rounded-lg text-xs font-extrabold uppercase flex items-center gap-1.5 cursor-pointer">
             <span>🎯</span> + Dictar Orden
           </button>
-          <button onclick="closeMissionsBoardModal()" class="btn-sand px-3 py-1.5 rounded-lg text-[#3a2618] hover:text-red-700 text-base font-extrabold cursor-pointer">
-            ✕
-          </button>
+          <button onclick="closeMissionsBoardModal()" class="btn-sand px-3 py-1.5 rounded-lg text-[#3a2618] hover:text-red-700 text-base font-extrabold cursor-pointer">✕</button>
         </div>
       </div>
 
-      <!-- PESTAÑAS DE CLASIFICACIÓN TÁCTICA -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 shrink-0">
-        <button id="tabFilter_all" onclick="setMissionBoardFilter('all')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5">
-          <span>🗂️</span> <span>Todas</span>
-        </button>
-        <button id="tabFilter_hp" onclick="setMissionBoardFilter('hp')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5">
-          <span>🏋️</span> <span>Instrucción Física</span>
-        </button>
-        <button id="tabFilter_mp" onclick="setMissionBoardFilter('mp')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5">
-          <span>🏰</span> <span>Base y Suministros</span>
-        </button>
-        <button id="tabFilter_shopping" onclick="setMissionBoardFilter('shopping')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5">
-          <span>📦</span> <span>Solo Suministros</span>
-        </button>
+        <button id="tabFilter_all" onclick="setMissionBoardFilter('all')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5"><span>🗂️</span> <span>Todas</span></button>
+        <button id="tabFilter_hp" onclick="setMissionBoardFilter('hp')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5"><span>🏋️</span> <span>Instrucción Física</span></button>
+        <button id="tabFilter_mp" onclick="setMissionBoardFilter('mp')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5"><span>🏰</span> <span>Base y Suministros</span></button>
+        <button id="tabFilter_shopping" onclick="setMissionBoardFilter('shopping')" class="py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5"><span>📦</span> <span>Solo Suministros</span></button>
       </div>
 
-      <!-- Lista desplazable de misiones filtradas -->
       <div id="tasksContainer" class="space-y-3.5 overflow-y-auto pr-1 flex-1"></div>
 
-      <!-- Pie del Modal -->
       <div class="flex items-center justify-between pt-3 border-t-2 border-[#8c7f67] shrink-0">
         <span id="filterSummaryText" class="text-xs font-bold text-[#4e3524]"></span>
-        <button onclick="closeMissionsBoardModal()" class="btn-army px-5 py-2 rounded-lg text-xs font-extrabold uppercase cursor-pointer">
-          Volver al Escuadrón
-        </button>
+        <button onclick="closeMissionsBoardModal()" class="btn-army px-5 py-2 rounded-lg text-xs font-extrabold uppercase cursor-pointer">Volver al Escuadrón</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL: RELOJ DE CAMPAÑA, SEMANAS (+5 🪙) Y MESES (+1 🎟️)  -->
-  <!-- ========================================================= -->
+  <!-- MODAL: RELOJ DE CAMPAÑA -->
   <div id="chronicleModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-lg w-full p-6 space-y-4 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
         <h3 class="font-military text-xl text-[#253317] uppercase">⏱️ Reloj de Campaña y Soldada</h3>
         <button onclick="closeChronicleModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
       <div class="flex items-center justify-between bg-[#e4dbc6] px-3 py-2 rounded-lg border border-[#8c7f67]">
         <span class="text-xs font-extrabold text-[#253317]">Inicio de Operaciones:</span>
         <span id="campaignStartBadge" class="text-xs font-extrabold text-[#4e3524]"></span>
       </div>
-
       <p class="text-xs text-[#3a2618] leading-relaxed font-medium">
-        El sistema registra automáticamente el transcurso de las semanas y meses desde el primer día de servicio:
-        al completar <strong>7 días</strong> con ambas barras al 100% concede <strong class="text-[#784702]">+5 Reales (🪙)</strong> para adquirir equipamiento en la Intendencia, y al completar <strong>30 días</strong> al 100% concede <strong class="text-[#7f1d1d]">+1 Pase de Permiso (🎟️)</strong> para reclamar un Capricho.
+        Al completar 7 días con ambas barras al 100% concede +5 Reales (🪙) para la Intendencia, y a los 30 días concede +1 Pase de Permiso (🎟️) para un Capricho.
       </p>
-
       <div class="space-y-3">
         <div class="bg-[#e8dfc9] border-2 border-[#9e9075] rounded-lg p-3.5 space-y-2">
           <div class="flex items-center justify-between text-xs">
@@ -298,12 +241,9 @@
           </div>
           <div class="flex items-center justify-between pt-1">
             <span class="text-[11px] text-[#4e3524] font-bold">Soldada al 100%: +5 Reales (🪙)</span>
-            <button onclick="manualCloseWeek()" class="btn-amber-tactical px-3 py-1 rounded text-xs font-extrabold cursor-pointer">
-              🪙 Cerrar Semana Ahora
-            </button>
+            <button onclick="manualCloseWeek()" class="btn-amber-tactical px-3 py-1 rounded text-xs font-extrabold cursor-pointer">🪙 Cerrar Semana</button>
           </div>
         </div>
-
         <div class="bg-[#e8dfc9] border-2 border-[#9e9075] rounded-lg p-3.5 space-y-2">
           <div class="flex items-center justify-between text-xs">
             <span class="font-extrabold text-[#7f1d1d] uppercase">🎖️ Ciclo Mensual <span id="monthNumberLabel" class="text-[#5c503e]"></span></span>
@@ -314,52 +254,42 @@
           </div>
           <div class="flex items-center justify-between pt-1">
             <span class="text-[11px] text-[#4e3524] font-bold">Recompensa al 100%: +1 Pase (🎟️)</span>
-            <button onclick="manualCloseMonth()" class="btn-army px-3 py-1 rounded text-xs font-extrabold cursor-pointer">
-              🎖️ Cerrar Mes Ahora
-            </button>
+            <button onclick="manualCloseMonth()" class="btn-army px-3 py-1 rounded text-xs font-extrabold cursor-pointer">🎖️ Cerrar Mes</button>
           </div>
         </div>
       </div>
-
       <div class="flex justify-end pt-2 border-t-2 border-[#8c7f67]">
         <button onclick="closeChronicleModal()" class="btn-sand px-4 py-2 rounded-lg text-xs font-extrabold cursor-pointer">Cerrar</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 1: ALISTAR EFECTIVO (CREAR PERSONAJE BASE)          -->
-  <!-- ========================================================= -->
+  <!-- MODAL: ALISTAR EFECTIVO -->
   <div id="guardianModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-md w-full p-6 space-y-4 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
         <h3 class="font-military text-xl text-[#253317] uppercase">🪖 Alistar Nuevo Efectivo</h3>
         <button onclick="closeGuardianModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
       <div class="flex flex-col items-center bg-[#e4dbc6] p-4 rounded-xl border-2 border-[#8c7f67]">
         <div id="newGuardianPreview" class="w-28 h-28 rounded-xl bg-[#253317] border-2 border-[#3a2618] overflow-hidden shadow-md"></div>
-        <span class="text-[11px] text-[#3a2618] font-bold mt-2 text-center">
-          Inicia con uniforme reglamentario • Gana 5 Reales (🪙) cada semana al 100% para equiparlo.
-        </span>
+        <span class="text-[11px] text-[#3a2618] font-bold mt-2 text-center">Gana 5 Reales (🪙) cada semana al 100% para equiparlo.</span>
       </div>
-
       <div class="space-y-3">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Nombre / Apodo</label>
-            <input id="gNameInput" type="text" placeholder="Ej: Alex, Lucía..." oninput="autoFillHandle()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#26231e] font-bold text-sm focus:outline-none focus:border-[#253317]" />
+            <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Nombre</label>
+            <input id="gNameInput" type="text" placeholder="Ej: Alex..." oninput="autoFillHandle()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#26231e] font-bold text-sm" />
           </div>
           <div>
             <label class="block text-xs font-extrabold uppercase text-[#4e3524] mb-1">Identificador (@id)</label>
-            <input id="gHandleInput" type="text" placeholder="Ej: @alex" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#3c4f24] font-extrabold text-sm focus:outline-none focus:border-[#253317]" />
+            <input id="gHandleInput" type="text" placeholder="Ej: @alex" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#3c4f24] font-extrabold text-sm" />
           </div>
         </div>
-
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-extrabold text-[#253317] mb-1">Tono de Piel</label>
-            <select id="gSkinInput" onchange="updateGuardianPreview()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold text-[#26231e]">
+            <label class="block text-xs font-extrabold text-[#253317] mb-1">Piel</label>
+            <select id="gSkinInput" onchange="updateGuardianPreview()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold">
               <option value="#fde0c8">Claro</option>
               <option value="#f5cba7">Trigueño</option>
               <option value="#e0ac69">Bronceado</option>
@@ -368,379 +298,214 @@
             </select>
           </div>
           <div>
-            <label class="block text-xs font-extrabold text-[#253317] mb-1">Corte de Pelo</label>
-            <select id="gHairStyleInput" onchange="updateGuardianPreview()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold text-[#26231e]">
-              <option value="short">Corte Táctico</option>
-              <option value="long">Melena Larga</option>
+            <label class="block text-xs font-extrabold text-[#253317] mb-1">Pelo</label>
+            <select id="gHairStyleInput" onchange="updateGuardianPreview()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold">
+              <option value="short">Corto Táctico</option>
+              <option value="long">Largo</option>
               <option value="spiky">Despeinado</option>
-              <option value="bun">Moño de Combate</option>
+              <option value="bun">Moño</option>
               <option value="ponytail">Coleta</option>
-              <option value="curly">Rizado</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-extrabold text-[#253317] mb-1">Color de Pelo</label>
-            <select id="gHairColorInput" onchange="updateGuardianPreview()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold text-[#26231e]">
-              <option value="#2c1b18">Castaño</option>
-              <option value="#0f172a">Negro</option>
-              <option value="#eab308">Rubio</option>
-              <option value="#b91c1c">Pelirrojo</option>
-              <option value="#94a3b8">Gris Veterano</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-extrabold text-[#253317] mb-1">Uniforme Base</label>
-            <select id="gOutfitInput" onchange="updateGuardianPreview()" class="w-full px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold text-[#26231e]">
-              <option value="#3c4f24">Verde Oliva Militar</option>
-              <option value="#78716c">Árido Desierto</option>
-              <option value="#1e3a8a">Azul Fuerza Aérea</option>
-              <option value="#7f1d1d">Granate Boina Real</option>
-              <option value="#1f2937">Negro Operaciones</option>
             </select>
           </div>
         </div>
       </div>
-
       <div class="flex justify-end gap-2 pt-3 border-t-2 border-[#8c7f67]">
         <button onclick="closeGuardianModal()" class="btn-sand px-4 py-2 rounded-lg text-sm font-extrabold cursor-pointer">Cancelar</button>
-        <button onclick="saveNewGuardian()" class="btn-army px-5 py-2 rounded-lg text-sm font-extrabold cursor-pointer">Incorporar al Escuadrón</button>
+        <button onclick="saveNewGuardian()" class="btn-army px-5 py-2 rounded-lg text-sm font-extrabold cursor-pointer">Alistar</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 2: DICTAR NUEVA ORDEN / MISIÓN / SUMINISTROS         -->
-  <!-- ========================================================= -->
+  <!-- MODAL: DICTAR ORDEN -->
   <div id="taskModal" class="fixed inset-0 modal-bg z-[60] hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-lg w-full p-6 space-y-4 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
         <h3 class="font-military text-xl text-[#253317] uppercase">🎯 Dictar Nueva Orden</h3>
         <button onclick="closeTaskModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
       <div>
         <label class="block text-xs font-extrabold uppercase text-[#253317] mb-2">Área Operativa</label>
         <div class="grid grid-cols-3 gap-2">
-          <button type="button" id="btnTypeSport" onclick="setTaskType('sport')" class="p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer">
-            <span class="text-xl">🏋️</span>
-            <span>Instrucción Física</span>
-          </button>
-          <button type="button" id="btnTypeHome" onclick="setTaskType('home')" class="p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer">
-            <span class="text-xl">🏰</span>
-            <span>Mantenimiento Base</span>
-          </button>
-          <button type="button" id="btnTypeShop" onclick="setTaskType('shopping')" class="p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer">
-            <span class="text-xl">📦</span>
-            <span>Suministros</span>
-          </button>
+          <button type="button" id="btnTypeSport" onclick="setTaskType('sport')" class="p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer"><span>🏋️</span><span>Instrucción</span></button>
+          <button type="button" id="btnTypeHome" onclick="setTaskType('home')" class="p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer"><span>🏰</span><span>Base</span></button>
+          <button type="button" id="btnTypeShop" onclick="setTaskType('shopping')" class="p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer"><span>📦</span><span>Suministros</span></button>
         </div>
       </div>
-
       <div>
-        <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Descripción de la Orden</label>
-        <input id="tTitleInput" type="text" placeholder="Ej: Entrenamiento de fuerza, Limpieza de cocina, Abastecimiento semanal..." class="w-full px-3.5 py-2.5 rounded-lg bg-white border-2 border-[#8c7f67] text-[#26231e] font-bold focus:outline-none focus:border-[#253317]" />
+        <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Descripción</label>
+        <input id="tTitleInput" type="text" placeholder="Ej: Entrenamiento de fuerza..." class="w-full px-3.5 py-2.5 rounded-lg bg-white border-2 border-[#8c7f67] font-bold" />
       </div>
-
       <div id="tTargetContainer">
-        <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Incursiones semanales requeridas</label>
-        <div class="flex items-center gap-3">
-          <input id="tTargetInput" type="number" min="1" max="14" value="3" class="w-24 px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#26231e] font-extrabold text-center" />
-          <span class="text-xs text-[#4e3524] font-semibold">Al asignarse disminuye la barra correspondiente y se restaura con cada objetivo cumplido.</span>
-        </div>
+        <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Incursiones semanales</label>
+        <input id="tTargetInput" type="number" min="1" max="14" value="3" class="w-24 px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] font-extrabold text-center" />
       </div>
-
       <div id="tShoppingInitialContainer" class="hidden">
-        <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Suministros requeridos (separados por coma)</label>
-        <input id="tShopItemsInput" type="text" placeholder="Ej: Raciones de leche, Huevos, Pan, Fruta..." class="w-full px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#26231e] font-bold text-sm" />
+        <label class="block text-xs font-extrabold uppercase text-[#253317] mb-1">Suministros (separados por coma)</label>
+        <input id="tShopItemsInput" type="text" placeholder="Leche, Huevos, Pan..." class="w-full px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold" />
       </div>
-
       <div>
         <div class="flex items-center justify-between mb-1.5">
-          <label class="text-xs font-extrabold uppercase text-[#253317]">Efectivos Convocados</label>
-          <button type="button" onclick="selectAllGuardiansInModal()" class="text-xs text-[#3c4f24] underline font-extrabold cursor-pointer">Seleccionar todos</button>
+          <label class="text-xs font-extrabold uppercase text-[#253317]">Efectivos</label>
+          <button type="button" onclick="selectAllGuardiansInModal()" class="text-xs text-[#3c4f24] underline font-extrabold cursor-pointer">Todos</button>
         </div>
         <div id="tAssigneesList" class="grid grid-cols-2 gap-2"></div>
       </div>
-
       <div class="flex justify-end gap-2 pt-3 border-t-2 border-[#8c7f67]">
         <button onclick="closeTaskModal()" class="btn-sand px-4 py-2 rounded-lg text-sm font-extrabold cursor-pointer">Cancelar</button>
-        <button onclick="saveNewTask()" class="btn-army px-5 py-2 rounded-lg text-sm font-extrabold cursor-pointer">Sellar y Publicar</button>
+        <button onclick="saveNewTask()" class="btn-army px-5 py-2 rounded-lg font-extrabold cursor-pointer">Publicar</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 3: INTENDENCIA Y ARMERÍA DEL AVATAR (5 Y 10 REALES) -->
-  <!-- ========================================================= -->
+  <!-- MODAL: INTENDENCIA -->
   <div id="armoryModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-2xl w-full p-6 space-y-4 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
         <div>
-          <h3 id="armoryTitle" class="font-military text-xl text-[#253317] uppercase">🎖️ Intendencia y Armería</h3>
+          <h3 id="armoryTitle" class="font-military text-xl text-[#253317] uppercase">🎖️ Intendencia</h3>
           <p id="armoryCoinsInfo" class="text-xs text-[#784702] font-extrabold mt-0.5"></p>
         </div>
         <button onclick="closeArmoryModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
       <div class="flex flex-col sm:flex-row items-center gap-4 bg-[#e4dbc6] p-4 rounded-xl border-2 border-[#8c7f67]">
         <div id="armoryAvatarPreview" class="w-28 h-28 rounded-xl bg-[#253317] border-2 border-[#3a2618] overflow-hidden shrink-0 shadow-md"></div>
         <div class="text-xs text-[#26231e] space-y-1.5 font-medium">
-          <p>🪙 <strong>Soldada Semanal:</strong> Cada semana finalizada con <span class="text-red-800 font-extrabold">100% en Instrucción Física</span> y <span class="text-blue-900 font-extrabold">100% en Base y Suministros</span> otorga <strong>+5 Reales (🪙)</strong>.</p>
-          <p>🪖 <strong>Aranceles de Intendencia:</strong> El equipamiento táctico cuesta <strong>5 🪙</strong> y las piezas de Comandante / Élite cuestan <strong>10 🪙</strong>. Puedes equipar 1 artículo de cada categoría.</p>
+          <p>🪙 Cada semana al 100% otorga <strong>+5 Reales</strong>.</p>
+          <p>🪖 Artículos tácticos por 5 Reales y Élite por 10 Reales.</p>
         </div>
       </div>
-
       <div id="armoryCatalog" class="space-y-4"></div>
-
       <div class="flex justify-end pt-3 border-t-2 border-[#8c7f67]">
-        <button onclick="closeArmoryModal()" class="btn-army px-5 py-2 rounded-lg font-extrabold text-sm cursor-pointer">Confirmar Equipamiento</button>
+        <button onclick="closeArmoryModal()" class="btn-army px-5 py-2 rounded-lg font-extrabold text-sm cursor-pointer">Cerrar</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 4: RECOMPENSAS Y CAPRICHOS DE FIN DE MES (PASE 🎟️)  -->
-  <!-- ========================================================= -->
+  <!-- MODAL: CAPRICHOS -->
   <div id="treatsModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-2xl w-full p-6 space-y-5 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
         <div>
-          <h3 id="treatsTitle" class="font-military text-xl text-[#7f1d1d] uppercase">🎁 Permisos y Caprichos de Fin de Mes</h3>
+          <h3 id="treatsTitle" class="font-military text-xl text-[#7f1d1d] uppercase">🎁 Caprichos de Fin de Mes</h3>
           <p id="treatsTokensInfo" class="text-xs text-[#3c4f24] font-extrabold mt-0.5"></p>
         </div>
         <button onclick="closeTreatsModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
-      <div class="bg-[#e4dbc6] p-3.5 rounded-xl border-2 border-[#8c7f67] text-xs text-[#26231e] space-y-1 font-medium">
-        <p>🎟️ <strong>Condecoración Mensual:</strong> Al culminar el mes con <span class="text-red-800 font-extrabold">100% en Instrucción Física</span> y <span class="text-blue-900 font-extrabold">100% en Base y Suministros</span>, recibes <strong>1 Pase de Permiso (🎟️)</strong>.</p>
-        <p>💝 Canjea tu pase por un capricho de la lista (masaje, tarde de juegos, cena especial...) o registra nuevas recompensas pactadas.</p>
+      <div class="bg-[#e4dbc6] p-3.5 rounded-xl border-2 border-[#8c7f67] text-xs font-medium">
+        🎟️ Al finalizar el mes al 100% recibes <strong>1 Pase de Permiso</strong> para canjear un capricho.
       </div>
-
-      <!-- Añadir capricho personalizado -->
-      <div class="bg-[#e8dfc9] p-3.5 rounded-xl border-2 border-[#9e9075] space-y-2">
-        <label class="block text-xs font-extrabold uppercase text-[#253317]">➕ Registrar nuevo Capricho en la lista</label>
-        <div class="flex flex-col sm:flex-row gap-2">
-          <select id="newTreatIcon" class="px-3 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold text-[#26231e]">
-            <option value="💆">💆 Masaje</option>
-            <option value="🍔">🍔 Cena Especial</option>
-            <option value="🎮">🎮 Tarde de Juegos</option>
-            <option value="🎬">🎬 Sesión de Cine</option>
-            <option value="🥞">🥞 Desayuno en cama</option>
-            <option value="🛋️">🛋️ Día de Permiso</option>
-            <option value="❤️">❤️ Velada Sorpresa</option>
-            <option value="🍦">🍦 Postre Favorito</option>
-          </select>
-          <input id="newTreatTitle" type="text" placeholder="Ej: Masaje de 30 min, Tarde de juegos juntos, Cena especial..." class="flex-1 px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold text-[#26231e] focus:outline-none focus:border-[#253317]" />
-          <button onclick="addCustomTreat()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-xs cursor-pointer shrink-0">
-            Añadir Capricho
-          </button>
-        </div>
-      </div>
-
-      <!-- Catálogo de Caprichos -->
       <div>
-        <h4 class="text-xs font-extrabold uppercase text-[#253317] mb-2.5">✨ Recompensas Disponibles (Coste: 1 🎟️)</h4>
+        <h4 class="text-xs font-extrabold uppercase text-[#253317] mb-2.5">✨ Recompensas Disponibles</h4>
         <div id="treatsCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
       </div>
-
-      <!-- Historial de Caprichos Reclamados -->
       <div>
-        <h4 class="text-xs font-extrabold uppercase text-[#7f1d1d] mb-2">🎟️ Caprichos Reclamados por este Efectivo</h4>
+        <h4 class="text-xs font-extrabold uppercase text-[#7f1d1d] mb-2">🎟️ Permisos Reclamados</h4>
         <div id="claimedTreatsList" class="space-y-2"></div>
       </div>
-
       <div class="flex justify-end pt-3 border-t-2 border-[#8c7f67]">
         <button onclick="closeTreatsModal()" class="btn-army px-5 py-2 rounded-lg font-extrabold text-sm cursor-pointer">Cerrar</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 5: RADIO COMUNICACIÓN EN LÍNEA                       -->
-  <!-- ========================================================= -->
+  <!-- MODAL: RADIO / LÍNEA -->
   <div id="castleSyncModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-lg w-full p-6 space-y-5 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
-        <h3 class="font-military text-xl text-[#253317] uppercase">📻 Radio de Sincronización en Línea</h3>
+        <h3 class="font-military text-xl text-[#253317] uppercase">📻 Radio de Sincronización</h3>
         <button onclick="closeCastleSyncModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
       <div class="bg-[#e4dbc6] border-2 border-[#8c7f67] rounded-xl p-4 space-y-3">
-        <div class="flex items-center gap-2 text-[#253317] font-extrabold text-sm">
-          <span>📡</span> <span>Opción 1: Frecuencia de Sala Compartida</span>
-        </div>
-        <p class="text-xs text-[#3a2618] font-medium">
-          Pulsa en <strong>«Crear nueva Frecuencia»</strong> y comparte el código (ej. <code>FORT-8391</code>) con tu pareja. Al vincular ambos dispositivos a la misma frecuencia, compartiréis misiones, suministros, monedas y caprichos en tiempo real.
-        </p>
-
+        <p class="text-xs text-[#3a2618] font-medium">Crea una frecuencia (ej. <code>FORT-8391</code>) y compártela con tu pareja para sincronizar en tiempo real.</p>
         <div class="flex gap-2">
-          <input id="roomCodeInput" type="text" placeholder="Código (ej: FORT-8391)" class="flex-1 px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#26231e] font-mono font-extrabold text-sm uppercase focus:outline-none focus:border-[#253317]" />
-          <button onclick="joinCloudRoom()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-xs cursor-pointer">
-            Vincular
-          </button>
+          <input id="roomCodeInput" type="text" placeholder="Código (ej: FORT-8391)" class="flex-1 px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] font-mono font-extrabold text-sm uppercase" />
+          <button onclick="joinCloudRoom()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-xs cursor-pointer">Vincular</button>
         </div>
-
         <div class="flex items-center justify-between pt-1">
-          <button onclick="createNewCloudRoom()" class="text-xs text-[#253317] underline font-extrabold cursor-pointer">
-            ✨ Crear nueva Frecuencia en la nube
-          </button>
-          <button onclick="resetApp()" class="text-xs text-red-800 underline font-bold cursor-pointer">
-            🗑️ Restaurar valores de fábrica
-          </button>
+          <button onclick="createNewCloudRoom()" class="text-xs text-[#253317] underline font-extrabold cursor-pointer">✨ Crear nueva Frecuencia</button>
+          <button onclick="resetApp()" class="text-xs text-red-800 underline font-bold cursor-pointer">🗑️ Reiniciar</button>
         </div>
       </div>
-
       <div class="bg-[#e4dbc6] border-2 border-[#8c7f67] rounded-xl p-4 space-y-3">
-        <div class="flex items-center gap-2 text-[#4e3524] font-extrabold text-sm">
-          <span>📲</span> <span>Opción 2: Enviar Enlace Directo por WhatsApp</span>
-        </div>
-        <p class="text-xs text-[#3a2618] font-medium">
-          Copia un enlace directo con los datos actuales del Cuartel General para abrirlo en otro dispositivo.
-        </p>
-        <button onclick="copyInviteLink()" class="btn-amber-tactical w-full py-2.5 rounded-lg font-extrabold text-xs md:text-sm cursor-pointer">
-          🔗 Copiar Enlace de Invitación
-        </button>
+        <button onclick="copyInviteLink()" class="btn-amber-tactical w-full py-2.5 rounded-lg font-extrabold text-xs cursor-pointer">🔗 Copiar Enlace de Invitación</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 6: BUSCAR POR @ID                                   -->
-  <!-- ========================================================= -->
+  <!-- MODAL: BUSCAR POR @ID -->
   <div id="searchUserModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-md w-full p-6 space-y-4">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
         <h3 class="font-military text-lg text-[#253317] uppercase">🔍 Localizar Efectivo por @id</h3>
         <button onclick="closeSearchUserModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
-      <p class="text-xs text-[#3a2618] font-medium">
-        Introduce el identificador <strong>@id</strong> de tu compañero/a para incorporarlo directamente al escuadrón.
-      </p>
-
       <div class="flex gap-2">
-        <input id="searchHandleInput" type="text" placeholder="Escribe @alias..." class="flex-1 px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-[#26231e] font-bold text-sm focus:outline-none focus:border-[#253317]" />
-        <button onclick="quickAddByHandle()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-xs cursor-pointer">
-          + Alistar
-        </button>
+        <input id="searchHandleInput" type="text" placeholder="Escribe @alias..." class="flex-1 px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] font-bold text-sm" />
+        <button onclick="quickAddByHandle()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-xs cursor-pointer">+ Alistar</button>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- MODAL 7: MANUAL DE OPERACIONES Y EXPLICACIÓN DE LOGROS    -->
-  <!-- ========================================================= -->
+  <!-- MODAL: MANUAL DE INFORMACIÓN -->
   <div id="infoModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-xl w-full p-6 space-y-4 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
-        <h3 class="font-military text-xl text-[#253317] uppercase flex items-center gap-2">
-          <span>ℹ️</span> Manual de Operaciones y Logros
-        </h3>
+        <h3 class="font-military text-xl text-[#253317] uppercase flex items-center gap-2"><span>ℹ️</span> Manual de Operaciones y Logros</h3>
         <button onclick="closeInfoModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
-
       <div class="space-y-2.5">
         <p class="text-xs text-[#3a2618] leading-relaxed font-semibold bg-[#e4dbc6] p-3 rounded-xl border border-[#8c7f67]">
-          Bienvenido a <strong>FORTALIA — Guardianes del Castillo</strong>. Aquí tenéis el reglamento oficial sobre cómo funcionan las barras operativas, las misiones en equipo y las recompensas que podéis ganar cada semana y cada mes:
+          Bienvenido a <strong>FORTALIA</strong>. Reglamento oficial de misiones y recompensas:
         </p>
         <div class="p-3.5 rounded-xl bg-[#253317] border-2 border-[#3a2618] text-[#f5f0e4] text-xs italic font-medium text-center shadow-[3px_3px_0px_#3a2618]">
           «Aquí mediremos vuestro nivel y compromiso para ser un buen soldado tanto a nivel físico como de lealtad al cuartel. Y recuerda: si un efectivo permite que sus barras caigan a cero, ¡habrá consecuencias en el campo de batalla!»
         </div>
       </div>
-
       <div class="space-y-3 text-xs text-[#26231e]">
-        <!-- Bloque 1: Funcionamiento de las Barras y Castigos -->
         <div class="bg-[#f5f0e4] border-2 border-[#8c7f67] rounded-xl p-3.5 space-y-1.5 shadow-[3px_3px_0px_#3a2618]">
-          <div class="font-military text-sm text-[#253317] uppercase flex items-center gap-2">
-            <span>🏋️ / 🏰</span> <span>1. Barras Operativas y Consejo de Guerra (Castigos)</span>
-          </div>
-          <p class="leading-relaxed">
-            Aquí mediremos vuestro nivel y compromiso para ser un buen soldado tanto a nivel físico como de lealtad al cuartel. Todos empiezan al <strong>100%</strong> y las barras bajan al asignar misiones:
-          </p>
-          <ul class="list-disc pl-5 space-y-1 text-[#3a2618] font-medium">
-            <li><strong class="text-[#991b1b]">Instrucción Física:</strong> Disciplina deportiva. Sube al registrar <strong>«🎯 ¡Cumplido!»</strong>.</li>
-            <li><strong class="text-[#1e3a8a]">Base y Suministros:</strong> Tareas de base y la <strong>Lista de Suministros común</strong>.</li>
-            <li><strong class="text-red-700">⚠️ Penalización por llegar al 0%:</strong> Si un efectivo permite que alguna de sus barras caiga a <strong>0%</strong>, se activa un <em>Consejo de Guerra</em> con sanción disciplinaria: bloqueo temporal de la Intendencia y pérdida de privilegios hasta recuperar mínimos.</li>
+          <div class="font-military text-sm text-[#253317] uppercase">🏋️ / 🏰 1. Barras Operativas y Consejo de Guerra</div>
+          <p>Todos empiezan al <strong>100%</strong> y las barras bajan al asignar misiones:</p>
+          <ul class="list-disc pl-5 space-y-1 font-medium">
+            <li><strong class="text-[#991b1b]">Instrucción Física:</strong> Disciplina deportiva.</li>
+            <li><strong class="text-[#1e3a8a]">Base y Suministros:</strong> Tareas de base y lista de la compra.</li>
+            <li><strong class="text-red-700">⚠️ Penalización al 0%:</strong> Consejo de guerra automático (bloqueo temporal de la Intendencia).</li>
           </ul>
         </div>
-
-        <!-- Bloque 2: Logro Semanal (Monedas / Reales) -->
         <div class="bg-[#f5f0e4] border-2 border-[#c27803] rounded-xl p-3.5 space-y-1.5 shadow-[3px_3px_0px_#3a2618]">
-          <div class="font-military text-sm text-[#784702] uppercase flex items-center gap-2">
-            <span>🪙</span> <span>2. Logro Semanal: Reales de Oro (+5 🪙)</span>
-          </div>
-          <p class="leading-relaxed">
-            Cada vez que se cumple un ciclo de <strong>7 días</strong> (o al cerrar la semana desde el reloj), todo efectivo que haya mantenido sus dos barras al <strong>100%</strong> recibe una soldada de <strong>+5 Reales (🪙)</strong>.
-          </p>
-          <p class="text-[#4e3524] font-semibold">
-            🪖 <strong>¿Para qué sirven?</strong> En el botón <strong>«🪖 Intendencia»</strong> de tu tarjeta puedes canjear tus Reales por equipamiento para personalizar tu Avatar: artículos tácticos por <strong>5 🪙</strong> (boinas, gorras, gafas, pañuelos, escudos) o piezas de Élite por <strong>10 🪙</strong> (cascos de asalto, insignias de general, visores especiales, ponchos, sables o halcones).
-          </p>
+          <div class="font-military text-sm text-[#784702] uppercase">🪙 2. Logro Semanal: Reales de Oro (+5 🪙)</div>
+          <p>Al mantener ambas barras al 100% durante 7 días, recibes +5 Reales para comprar equipo en la Intendencia.</p>
         </div>
-
-        <!-- Bloque 3: Logro Mensual (Caprichos) -->
         <div class="bg-[#f5f0e4] border-2 border-[#7f1d1d] rounded-xl p-3.5 space-y-1.5 shadow-[3px_3px_0px_#3a2618]">
-          <div class="font-military text-sm text-[#7f1d1d] uppercase flex items-center gap-2">
-            <span>🎟️</span> <span>3. Logro Mensual: Pase de Capricho (+1 🎟️)</span>
-          </div>
-          <p class="leading-relaxed">
-            Al culminar un ciclo de <strong>30 días</strong> (fin de mes) con el <strong>100% en Instrucción Física</strong> y el <strong>100% en Base y Suministros</strong>, obtienes la máxima condecoración: <strong>+1 Pase de Permiso (🎟️)</strong>.
-          </p>
-          <p class="text-[#4e3524] font-semibold">
-            🎁 <strong>¿Para qué sirve?</strong> En el botón <strong>«🎁 Caprichos»</strong> puedes canjear tu pase por recompensas reales en pareja o familia (<em>un masaje de 30 minutos, una tarde de juegos juntos, elegir una cena especial, desayuno en la cama o un día libre de tareas</em>), e incluso añadir vuestros propios caprichos personalizados.
-          </p>
-        </div>
-
-        <!-- Bloque 4: Sincronización en Línea -->
-        <div class="bg-[#e8dfc9] border-2 border-[#9e9075] rounded-xl p-3 space-y-1">
-          <div class="font-extrabold text-[#253317] uppercase flex items-center gap-1.5">
-            <span>📻</span> <span>4. Cómo conectar vuestros móviles en línea</span>
-          </div>
-          <p class="text-[#3a2618] leading-relaxed">
-            Pulsa arriba a la izquierda en <strong>«📻 Frecuencia: LOCAL»</strong>, crea una frecuencia (ej. <code>FORT-8391</code>) y comparte el código o el enlace directo con tu pareja para que ambos veáis y actualicéis el mismo Cuartel General desde vuestro móvil.
-          </p>
+          <div class="font-military text-sm text-[#7f1d1d] uppercase">🎟️ 3. Logro Mensual: Pase de Capricho (+1 🎟️)</div>
+          <p>Al finalizar el mes al 100%, obtienes 1 Pase de Permiso para canjear un capricho con tu pareja.</p>
         </div>
       </div>
-
       <div class="flex justify-end pt-2 border-t-2 border-[#8c7f67]">
-        <button onclick="closeInfoModal()" class="btn-army px-5 py-2 rounded-lg text-xs font-extrabold uppercase cursor-pointer">
-          ¡Entendido, a las órdenes!
-        </button>
+        <button onclick="closeInfoModal()" class="btn-army px-5 py-2 rounded-lg text-xs font-extrabold uppercase cursor-pointer">Entendido</button>
       </div>
     </div>
   </div>
 
-  <!-- TOAST MILITAR -->
-  <div id="toastBox" class="fixed bottom-5 right-5 z-[70] hidden bg-[#253317] border-2 border-[#ede6d6] text-[#f5f0e4] px-4 py-3.5 rounded-xl shadow-2xl text-xs md:text-sm font-extrabold max-w-sm"></div>
+  <div id="toastBox" class="fixed bottom-5 right-5 z-[70] hidden bg-[#253317] border-2 border-[#ede6d6] text-[#f5f0e4] px-4 py-3.5 rounded-xl shadow-2xl text-xs font-extrabold max-w-sm"></div>
 
   <script>
     const STORAGE_KEY = 'fortalia_military_camo_v11';
     const CLOUD_API_BASE = 'https://kvdb.io/A6p8Vq2x9Lm4N7kR3tW1yZ/';
     const MS_PER_DAY = 86400000;
 
-    // CATÁLOGO DE INTENDENCIA / ARMERÍA (PRECIOS DE 5 Y 10 REALES 🪙)
     const ARMORY_ITEMS = [
-      // Gorros, Boinas y Cascos (hat)
       { id: 'beret', name: 'Boina Verde de Operaciones', slot: 'hat', icon: '🪖', price: 5, tier: 'Táctico' },
       { id: 'beanie', name: 'Gorro de Guardia Nocturna', slot: 'hat', icon: '🧶', price: 5, tier: 'Táctico' },
       { id: 'cap', name: 'Gorra de Campaña', slot: 'hat', icon: '🧢', price: 5, tier: 'Táctico' },
       { id: 'helmet', name: 'Casco Balístico de Asalto', slot: 'hat', icon: '⛑️', price: 10, tier: 'Élite' },
       { id: 'crown', name: 'Insignia de General Supremo', slot: 'hat', icon: '👑', price: 10, tier: 'Élite' },
-
-      // Gafas y Visores (glasses)
       { id: 'roundglasses', name: 'Lentes de Cartografía', slot: 'glasses', icon: '👓', price: 5, tier: 'Táctico' },
       { id: 'sunglasses', name: 'Gafas Tácticas de Aviador', slot: 'glasses', icon: '🕶️', price: 5, tier: 'Táctico' },
       { id: 'monocle', name: 'Óptica de Francotirador', slot: 'glasses', icon: '🧐', price: 10, tier: 'Élite' },
       { id: 'mask', name: 'Visor de Fuerzas Especiales', slot: 'glasses', icon: '🥽', price: 10, tier: 'Élite' },
-
-      // Bufandas, Pañuelos y Condecoraciones (neck)
       { id: 'redscarf', name: 'Pañuelo Táctico de Cuello', slot: 'neck', icon: '🧣', price: 5, tier: 'Táctico' },
       { id: 'stripescarf', name: 'Bufanda de Campaña Invernal', slot: 'neck', icon: '🎗️', price: 5, tier: 'Táctico' },
       { id: 'medal', name: 'Cruz del Valor de Fortalia', slot: 'neck', icon: '🎖️', price: 10, tier: 'Élite' },
-
-      // Equipo Especial y Compañeros (relic)
       { id: 'shield', name: 'Escudo Táctico de Defensa', slot: 'relic', icon: '🛡️', price: 5, tier: 'Táctico' },
       { id: 'cape', name: 'Poncho de Camuflaje Élite', slot: 'relic', icon: '🧥', price: 10, tier: 'Élite' },
       { id: 'sword', name: 'Sable de Oficial de Mando', slot: 'relic', icon: '⚔️', price: 10, tier: 'Élite' },
@@ -748,7 +513,6 @@
       { id: 'aura', name: 'Estrella Dorada de Veterano', slot: 'relic', icon: '⭐', price: 10, tier: 'Élite' }
     ];
 
-    // LISTA DE CAPRICHOS DE FIN DE MES (1 PASE 🎟️)
     const DEFAULT_TREATS = [
       { id: 'tr1', icon: '💆', title: 'Masaje relajante de 30 minutos' },
       { id: 'tr2', icon: '🎮', title: 'Tarde de juegos juntos a elección' },
@@ -770,74 +534,23 @@
       monthsCompleted: 1,
       treatsCatalog: JSON.parse(JSON.stringify(DEFAULT_TREATS)),
       guardians: [
-        {
-          id: 'g1',
-          name: 'Alex',
-          handle: '@alex',
-          skin: '#fde0c8',
-          hairStyle: 'short',
-          hairColor: '#2c1b18',
-          outfit: '#3c4f24',
-          coins: 10,
-          monthTokens: 1,
-          unlocked: [],
-          equipped: { hat: null, glasses: null, neck: null, relic: null },
-          claimedTreats: []
-        },
-        {
-          id: 'g2',
-          name: 'Lucía',
-          handle: '@lucia',
-          skin: '#f5cba7',
-          hairStyle: 'long',
-          hairColor: '#b91c1c',
-          outfit: '#78716c',
-          coins: 10,
-          monthTokens: 1,
-          unlocked: [],
-          equipped: { hat: null, glasses: null, neck: null, relic: null },
-          claimedTreats: []
-        }
+        { id: 'g1', name: 'Alex', handle: '@alex', skin: '#fde0c8', hairStyle: 'short', hairColor: '#2c1b18', outfit: '#3c4f24', coins: 10, monthTokens: 1, unlocked: [], equipped: { hat: null, glasses: null, neck: null, relic: null }, claimedTreats: [] },
+        { id: 'g2', name: 'Lucía', handle: '@lucia', skin: '#f5cba7', hairStyle: 'long', hairColor: '#b91c1c', outfit: '#78716c', coins: 10, monthTokens: 1, unlocked: [], equipped: { hat: null, glasses: null, neck: null, relic: null }, claimedTreats: [] }
       ],
       tasks: [
-        {
-          id: 't1',
-          type: 'sport',
-          title: 'Entrenamiento Físico / Deporte (3 sesiones/semana)',
-          target: 3,
-          assignees: ['g1', 'g2'],
-          progress: { g1: 2, g2: 3 },
-          items: []
-        },
-        {
-          id: 't2',
-          type: 'home',
-          title: 'Mantenimiento del Cuartel: Limpieza de Cocina y Salón',
-          target: 2,
-          assignees: ['g1', 'g2'],
-          progress: { g1: 1, g2: 2 },
-          items: []
-        },
-        {
-          id: 't3',
-          type: 'shopping',
-          title: 'Abastecimiento de Suministros de la Base',
-          target: 1,
-          assignees: ['g1', 'g2'],
-          progress: { g1: 0, g2: 0 },
-          completedCommon: false,
-          items: [
-            { id: 'i1', text: 'Raciones de leche y huevos', done: true },
-            { id: 'i2', text: 'Pan integral y aguacates', done: false },
-            { id: 'i3', text: 'Suministros para la cena del viernes', done: false }
-          ]
-        }
+        { id: 't1', type: 'sport', title: 'Entrenamiento Físico / Deporte (3 sesiones/semana)', target: 3, assignees: ['g1', 'g2'], progress: { g1: 2, g2: 3 }, items: [] },
+        { id: 't2', type: 'home', title: 'Mantenimiento del Cuartel: Limpieza de Cocina y Salón', target: 2, assignees: ['g1', 'g2'], progress: { g1: 1, g2: 2 }, items: [] },
+        { id: 't3', type: 'shopping', title: 'Abastecimiento de Suministros de la Base', target: 1, assignees: ['g1', 'g2'], progress: { g1: 0, g2: 0 }, completedCommon: false, items: [
+          { id: 'i1', text: 'Raciones de leche y huevos', done: true },
+          { id: 'i2', text: 'Pan integral y aguacates', done: false },
+          { id: 'i3', text: 'Suministros para la cena del viernes', done: false }
+        ]}
       ]
     };
 
     let state = loadState();
     let currentTaskType = 'sport';
-    let currentMissionFilter = 'all'; // 'all' | 'hp' | 'mp' | 'shopping'
+    let currentMissionFilter = 'all';
     let activeArmoryGuardianId = null;
     let activeTreatsGuardianId = null;
 
@@ -871,12 +584,9 @@
       s.lastMonthCheckTs = Number(s.lastMonthCheckTs) || s.campaignStartTs;
       s.weeksCompleted = Number(s.weeksCompleted) || 1;
       s.monthsCompleted = Number(s.monthsCompleted) || 1;
-      s.treatsCatalog = Array.isArray(s.treatsCatalog) && s.treatsCatalog.length > 0
-        ? s.treatsCatalog
-        : JSON.parse(JSON.stringify(DEFAULT_TREATS));
+      s.treatsCatalog = Array.isArray(s.treatsCatalog) && s.treatsCatalog.length > 0 ? s.treatsCatalog : JSON.parse(JSON.stringify(DEFAULT_TREATS));
       s.guardians = Array.isArray(s.guardians) ? s.guardians : [];
       s.tasks = Array.isArray(s.tasks) ? s.tasks : [];
-
       s.guardians.forEach(g => {
         g.handle = g.handle || ('@' + (g.name || 'efectivo').toLowerCase().replace(/[^a-z0-9]/g, ''));
         g.skin = g.skin || '#fde0c8';
@@ -889,7 +599,6 @@
         g.equipped = g.equipped || { hat: null, glasses: null, neck: null, relic: null };
         g.claimedTreats = Array.isArray(g.claimedTreats) ? g.claimedTreats : [];
       });
-
       s.tasks.forEach(t => {
         t.assignees = Array.isArray(t.assignees) ? t.assignees : [];
         t.progress = t.progress || {};
@@ -902,12 +611,8 @@
     function saveState(pushCloud = true) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        if (pushCloud && state.roomCode) {
-          pushToCloudRoom(state.roomCode);
-        }
-      } catch (e) {
-        console.error(e);
-      }
+        if (pushCloud && state.roomCode) pushToCloudRoom(state.roomCode);
+      } catch (e) { console.error(e); }
     }
 
     function showToast(msg) {
@@ -918,12 +623,10 @@
       window._toastTimer = setTimeout(() => box.classList.add('hidden'), 4000);
     }
 
-    // DETECCIÓN AUTOMÁTICA DE SEMANAS (7 DÍAS) Y MESES (30 DÍAS)
     function checkAutomaticTimeCycles() {
       const now = Date.now();
       let updated = false;
       let notifications = [];
-
       const weekMs = 7 * MS_PER_DAY;
       if (now - state.lastWeekCheckTs >= weekMs) {
         const weeksPassed = Math.floor((now - state.lastWeekCheckTs) / weekMs);
@@ -942,9 +645,7 @@
         state.lastWeekCheckTs += weeksPassed * weekMs;
         state.weeksCompleted = (state.weeksCompleted || 1) + weeksPassed;
         updated = true;
-        if (rewardedNames.length > 0) {
-          notifications.push(`🪙 ¡Ciclo semanal completado! ${rewardedNames.join(' y ')} reciben +5 Reales por mantener el 100%.`);
-        }
+        if (rewardedNames.length > 0) notifications.push(`🪙 ¡Ciclo semanal completado! ${rewardedNames.join(' y ')} reciben +5 Reales.`);
       }
 
       const monthMs = 30 * MS_PER_DAY;
@@ -961,280 +662,93 @@
         state.lastMonthCheckTs += monthsPassed * monthMs;
         state.monthsCompleted = (state.monthsCompleted || 1) + monthsPassed;
         updated = true;
-        if (monthWinners.length > 0) {
-          notifications.push(`🎖️ ¡Campaña mensual completada al 100%! ${monthWinners.join(' y ')} ganan +1 Pase de Permiso (🎟️).`);
-        }
+        if (monthWinners.length > 0) notifications.push(`🎖️ ¡Campaña mensual completada! ${monthWinners.join(' y ')} ganan +1 Pase de Permiso.`);
       }
 
       if (updated) {
         saveState();
-        if (notifications.length > 0) {
-          setTimeout(() => showToast(notifications.join(' ')), 500);
-        }
+        if (notifications.length > 0) setTimeout(() => showToast(notifications.join(' ')), 500);
       }
     }
 
     function renderChronicleHeader() {
       const now = Date.now();
       const startDate = new Date(state.campaignStartTs);
-      const formattedStart = startDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
-      document.getElementById('campaignStartBadge').textContent = formattedStart;
-
+      document.getElementById('campaignStartBadge').textContent = startDate.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
       const weekElapsed = Math.max(0, now - state.lastWeekCheckTs);
       const weekTotal = 7 * MS_PER_DAY;
-      const weekDaysLeft = Math.max(1, Math.ceil((weekTotal - weekElapsed) / MS_PER_DAY));
-      const weekPct = Math.min(100, Math.max(8, Math.round((weekElapsed / weekTotal) * 100)));
-
       document.getElementById('headerCycleShort').textContent = `Sem. #${state.weeksCompleted || 1} • Mes #${state.monthsCompleted || 1}`;
       document.getElementById('weekNumberLabel').textContent = `(Sem. #${state.weeksCompleted || 1})`;
-      document.getElementById('weekCountdownText').textContent = `${weekDaysLeft} día(s) restantes`;
-      document.getElementById('weekTimeBar').style.width = `${weekPct}%`;
+      document.getElementById('weekCountdownText').textContent = `${Math.max(1, Math.ceil((weekTotal - weekElapsed) / MS_PER_DAY))} día(s)`;
+      document.getElementById('weekTimeBar').style.width = `${Math.min(100, Math.max(8, Math.round((weekElapsed / weekTotal) * 100)))}%`;
 
       const monthElapsed = Math.max(0, now - state.lastMonthCheckTs);
       const monthTotal = 30 * MS_PER_DAY;
-      const monthDaysLeft = Math.max(1, Math.ceil((monthTotal - monthElapsed) / MS_PER_DAY));
-      const monthPct = Math.min(100, Math.max(5, Math.round((monthElapsed / monthTotal) * 100)));
-
       document.getElementById('monthNumberLabel').textContent = `(Mes #${state.monthsCompleted || 1})`;
-      document.getElementById('monthCountdownText').textContent = `${monthDaysLeft} día(s) restantes`;
-      document.getElementById('monthTimeBar').style.width = `${monthPct}%`;
+      document.getElementById('monthCountdownText').textContent = `${Math.max(1, Math.ceil((monthTotal - monthElapsed) / MS_PER_DAY))} día(s)`;
+      document.getElementById('monthTimeBar').style.width = `${Math.min(100, Math.max(5, Math.round((monthElapsed / monthTotal) * 100)))}%`;
     }
 
-    function openInfoModal() {
-      const m = document.getElementById('infoModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function closeInfoModal() {
-      const m = document.getElementById('infoModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    function openChronicleModal() {
-      renderChronicleHeader();
-      const m = document.getElementById('chronicleModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function closeChronicleModal() {
-      const m = document.getElementById('chronicleModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
+    function openInfoModal() { document.getElementById('infoModal').classList.remove('hidden'); document.getElementById('infoModal').classList.add('flex'); }
+    function closeInfoModal() { document.getElementById('infoModal').classList.add('hidden'); document.getElementById('infoModal').classList.remove('flex'); }
+    function openChronicleModal() { renderChronicleHeader(); document.getElementById('chronicleModal').classList.remove('hidden'); document.getElementById('chronicleModal').classList.add('flex'); }
+    function closeChronicleModal() { document.getElementById('chronicleModal').classList.add('hidden'); document.getElementById('chronicleModal').classList.remove('flex'); }
 
     function manualCloseWeek() {
       let winners = [];
       state.guardians.forEach(g => {
         const stats = calculateStats(g.id);
-        if (stats.hp === 100 && stats.mp === 100) {
-          g.coins = (g.coins || 0) + 5;
-          winners.push(g.name);
-        }
+        if (stats.hp === 100 && stats.mp === 100) { g.coins = (g.coins || 0) + 5; winners.push(g.name); }
       });
-
-      state.tasks.forEach(t => {
-        Object.keys(t.progress).forEach(gId => { t.progress[gId] = 0; });
-        if (t.type === 'shopping') t.completedCommon = false;
-      });
-
+      state.tasks.forEach(t => { Object.keys(t.progress).forEach(gId => { t.progress[gId] = 0; }); if (t.type === 'shopping') t.completedCommon = false; });
       state.lastWeekCheckTs = Date.now();
       state.weeksCompleted = (state.weeksCompleted || 1) + 1;
-      saveState();
-      renderAll();
-
-      if (winners.length > 0) {
-        showToast(`🪙 ¡Semana concluida! ${winners.join(' y ')} reciben +5 Reales para la Intendencia. Nuevo ciclo semanal iniciado.`);
-      } else {
-        showToast(`📅 Ciclo semanal reiniciado. Ningún efectivo tenía ambas barras al 100% para cobrar la soldada.`);
-      }
+      saveState(); renderAll();
+      showToast(winners.length > 0 ? `🪙 ¡Semana concluida! ${winners.join(' y ')} reciben +5 Reales.` : `📅 Ciclo semanal reiniciado.`);
     }
 
     function manualCloseMonth() {
       let winners = [];
       state.guardians.forEach(g => {
         const stats = calculateStats(g.id);
-        if (stats.hp === 100 && stats.mp === 100) {
-          g.monthTokens = (g.monthTokens || 0) + 1;
-          winners.push(g.name);
-        }
+        if (stats.hp === 100 && stats.mp === 100) { g.monthTokens = (g.monthTokens || 0) + 1; winners.push(g.name); }
       });
-
       state.lastMonthCheckTs = Date.now();
       state.monthsCompleted = (state.monthsCompleted || 1) + 1;
-      saveState();
-      renderAll();
-
-      if (winners.length > 0) {
-        showToast(`🎖️ ¡Mes concluido con honor! ${winners.join(' y ')} ganan +1 Pase de Permiso (🎟️) para canjear un Capricho.`);
-      } else {
-        showToast(`⚠️ Para obtener el Pase de Fin de Mes es necesario mantener Instrucción Física y Base y Suministros al 100%.`);
-      }
+      saveState(); renderAll();
+      showToast(winners.length > 0 ? `🎖️ ¡Mes concluido! ${winners.join(' y ')} ganan +1 Pase de Permiso.` : `⚠️ Se requiere 100% en ambas barras.`);
     }
 
-    // SISTEMA DE PENALIZACIÓN TÁCTICA CUANDO UN EFECTIVO LLEGA A 0%
     function checkZeroPenalties(guardianId, stats) {
       if (stats.hp === 0 || stats.mp === 0) {
-        return `
-          <div class="mt-2 p-2 rounded-lg bg-red-950/90 border-2 border-red-600 text-red-200 text-[11px] font-extrabold flex items-center gap-1.5 animate-pulse">
-            <span>⚠️</span> <span>¡CONSEJO DE GUERRA! Barra a 0%: ${stats.hp === 0 && stats.mp === 0 ? 'Insubordinación total' : stats.hp === 0 ? 'Falta de disciplina física' : 'Abandono de base'}. Castigo activo: Sin acceso a la Intendencia hasta recuperar mínimos.</span>
-          </div>
-        `;
+        return `<div class="mt-2 p-2 rounded-lg bg-red-950/90 border-2 border-red-600 text-red-200 text-[11px] font-extrabold flex items-center gap-1.5 animate-pulse"><span>⚠️</span> <span>¡CONSEJO DE GUERRA! Barra a 0%: Castigo activo sin Intendencia.</span></div>`;
       }
       return '';
     }
 
     function calculateStats(guardianId) {
-      let sportTotal = 0;
-      let sportDone = 0;
-      let manaTotal = 0;
-      let manaDone = 0;
-
+      let sportTotal = 0, sportDone = 0, manaTotal = 0, manaDone = 0;
       state.tasks.forEach(task => {
         if (!task.assignees.includes(guardianId)) return;
-
-        if (task.type === 'sport') {
-          sportTotal += task.target;
-          sportDone += Math.min(task.target, task.progress[guardianId] || 0);
-        } else if (task.type === 'home') {
-          manaTotal += task.target;
-          manaDone += Math.min(task.target, task.progress[guardianId] || 0);
-        } else if (task.type === 'shopping') {
-          manaTotal += 1;
-          manaDone += task.completedCommon ? 1 : 0;
-        }
+        if (task.type === 'sport') { sportTotal += task.target; sportDone += Math.min(task.target, task.progress[guardianId] || 0); }
+        else if (task.type === 'home') { manaTotal += task.target; manaDone += Math.min(task.target, task.progress[guardianId] || 0); }
+        else if (task.type === 'shopping') { manaTotal += 1; manaDone += task.completedCommon ? 1 : 0; }
       });
-
       const hp = sportTotal === 0 ? 100 : Math.round((sportDone / sportTotal) * 100);
       const mp = manaTotal === 0 ? 100 : Math.round((manaDone / manaTotal) * 100);
-
       return { hp, mp, sportDone, sportTotal, manaDone, manaTotal };
     }
 
-    // AVATAR MILITAR TÁCTICO EN SVG
     function renderAvatarSVG(g) {
       const eq = g.equipped || {};
-
-      let backLayer = '';
-      if (eq.relic === 'aura') {
-        backLayer += `<circle cx="50" cy="52" r="43" fill="none" stroke="#eab308" stroke-width="3" stroke-dasharray="6 4"/>`;
-      }
-      if (eq.relic === 'cape') {
-        backLayer += `<path d="M16 68 L84 68 L93 100 L7 100 Z" fill="#4d5e32"/>`;
-      }
-
-      let hairBack = '';
-      let hairFront = '';
-      if (g.hairStyle === 'short') {
-        hairFront = `<path d="M25 42 C25 18, 75 18, 75 42 C69 30, 31 30, 25 42 Z" fill="${g.hairColor}"/>`;
-      } else if (g.hairStyle === 'long') {
-        hairBack = `<path d="M21 42 C18 76, 26 92, 32 96 L68 96 C74 92, 82 76, 79 42 Z" fill="${g.hairColor}"/>`;
-        hairFront = `<path d="M25 40 C25 19, 75 19, 75 40 C66 29, 34 29, 25 40 Z" fill="${g.hairColor}"/>`;
-      } else if (g.hairStyle === 'spiky') {
-        hairFront = `<polygon points="23,42 29,18 40,29 50,13 60,29 71,18 77,42" fill="${g.hairColor}"/>`;
-      } else if (g.hairStyle === 'bun') {
-        hairBack = `<circle cx="50" cy="16" r="11" fill="${g.hairColor}"/>`;
-        hairFront = `<path d="M26 42 C26 21, 74 21, 74 42 C66 31, 34 31, 26 42 Z" fill="${g.hairColor}"/>`;
-      } else if (g.hairStyle === 'ponytail') {
-        hairBack = `<path d="M68 35 Q88 40 84 68 Q76 62 72 45 Z" fill="${g.hairColor}"/>`;
-        hairFront = `<path d="M26 41 C26 20, 74 20, 74 41 C66 30, 34 30, 26 41 Z" fill="${g.hairColor}"/>`;
-      } else {
-        hairFront = `
-          <circle cx="31" cy="29" r="9" fill="${g.hairColor}"/>
-          <circle cx="50" cy="24" r="11" fill="${g.hairColor}"/>
-          <circle cx="69" cy="29" r="9" fill="${g.hairColor}"/>
-        `;
-      }
-
-      let neckSVG = '';
-      if (eq.neck === 'redscarf') {
-        neckSVG = `<rect x="32" y="65" width="36" height="9" rx="4" fill="#78350f"/><rect x="54" y="68" width="9" height="19" rx="3" fill="#451a03"/>`;
-      } else if (eq.neck === 'stripescarf') {
-        neckSVG = `<rect x="32" y="65" width="36" height="9" rx="4" fill="#a16207"/><rect x="38" y="65" width="6" height="9" fill="#3f6212"/><rect x="52" y="65" width="6" height="9" fill="#3f6212"/>`;
-      } else if (eq.neck === 'medal') {
-        neckSVG = `<path d="M37 68 L50 83 L63 68" stroke="#dc2626" stroke-width="3" fill="none"/><polygon points="50,79 55,87 45,87" fill="#fbbf24" stroke="#78350f" stroke-width="1"/>`;
-      }
-
-      let glassesSVG = '';
-      if (eq.glasses === 'sunglasses') {
-        glassesSVG = `<rect x="29" y="42" width="18" height="10" rx="3" fill="#1c1917" stroke="#d97706" stroke-width="1.5"/><rect x="53" y="42" width="18" height="10" rx="3" fill="#1c1917" stroke="#d97706" stroke-width="1.5"/><line x1="47" y1="45" x2="53" y2="45" stroke="#d97706" stroke-width="2"/>`;
-      } else if (eq.glasses === 'roundglasses') {
-        glassesSVG = `<circle cx="39" cy="47" r="7.5" fill="rgba(255,255,255,0.15)" stroke="#44403c" stroke-width="2.2"/><circle cx="61" cy="47" r="7.5" fill="rgba(255,255,255,0.15)" stroke="#44403c" stroke-width="2.2"/><line x1="46.5" y1="47" x2="53.5" y2="47" stroke="#44403c" stroke-width="2.2"/>`;
-      } else if (eq.glasses === 'monocle') {
-        glassesSVG = `<circle cx="61" cy="47" r="7.5" fill="rgba(16,185,129,0.28)" stroke="#10b981" stroke-width="2.4"/><line x1="61" y1="39" x2="61" y2="55" stroke="#10b981" stroke-width="1"/>`;
-      } else if (eq.glasses === 'mask') {
-        glassesSVG = `<rect x="27" y="41" width="46" height="12" rx="4" fill="#1e293b" stroke="#64748b" stroke-width="2"/><circle cx="39" cy="47" r="4" fill="#22c55e"/><circle cx="61" cy="47" r="4" fill="#22c55e"/>`;
-      }
-
-      let hatSVG = '';
-      if (eq.hat === 'crown') {
-        hatSVG = `<path d="M24 30 L76 30 L80 18 L20 18 Z" fill="#1e2910" stroke="#fbbf24" stroke-width="2"/><circle cx="50" cy="24" r="3.5" fill="#fbbf24"/>`;
-      } else if (eq.hat === 'cap') {
-        hatSVG = `<path d="M26 31 C26 15, 74 15, 74 31 Z" fill="#3f6212"/><path d="M44 27 L84 32 L74 35 L44 31 Z" fill="#1a2e05"/>`;
-      } else if (eq.hat === 'beanie') {
-        hatSVG = `<path d="M26 32 C26 13, 74 13, 74 32 Z" fill="#292524"/><rect x="24" y="27" width="52" height="6.5" rx="3" fill="#1c1917"/>`;
-      } else if (eq.hat === 'helmet') {
-        hatSVG = `<path d="M23 36 C23 11, 77 11, 77 36 Z" fill="#3f4f29" stroke="#1e2910" stroke-width="2.5"/><rect x="25" y="26" width="50" height="4" fill="#5c4033"/>`;
-      } else if (eq.hat === 'beret') {
-        hatSVG = `<ellipse cx="48" cy="23" rx="26" ry="9" transform="rotate(-8 48 23)" fill="#15803d" stroke="#052e16" stroke-width="1.5"/><circle cx="34" cy="23" r="2.8" fill="#fbbf24"/>`;
-      }
-
-      let frontRelic = '';
-      if (eq.relic === 'sword') {
-        frontRelic = `<g transform="translate(75,55) rotate(20)"><rect x="-2.5" y="0" width="5" height="32" rx="1" fill="#cbd5e1"/><rect x="-8" y="6" width="16" height="3.5" rx="1" fill="#eab308"/></g>`;
-      } else if (eq.relic === 'dragon') {
-        frontRelic = `<g transform="translate(74,56)"><circle cx="0" cy="0" r="8.5" fill="#78350f"/><circle cx="-2.5" cy="-2" r="1.8" fill="#fbbf24"/><polygon points="5,-1 12,1 5,3" fill="#eab308"/></g>`;
-      } else if (eq.relic === 'shield') {
-        frontRelic = `<path d="M65 63 L85 63 L85 78 C85 87, 75 93, 75 93 C75 93, 65 87, 65 78 Z" fill="#3f6212" stroke="#eab308" stroke-width="2"/>`;
-      }
-
-      return `
-        <svg viewBox="0 0 100 100" class="w-full h-full">
-          <rect width="100" height="100" fill="#2d3a1e"/>
-          <path d="M0 70 Q40 50 100 80 L100 100 L0 100 Z" fill="#1e2910" opacity="0.6"/>
-          ${backLayer}
-          ${hairBack}
-          <!-- Uniforme Militar con galones -->
-          <path d="M16 100 C16 69, 84 69, 84 100 Z" fill="${g.outfit}" stroke="#1c1917" stroke-width="1.5"/>
-          <rect x="22" y="73" width="12" height="5" rx="1" fill="#eab308"/>
-          <rect x="66" y="73" width="12" height="5" rx="1" fill="#eab308"/>
-          <!-- Cuello -->
-          <rect x="43" y="59" width="14" height="15" rx="4" fill="${g.skin}"/>
-          <!-- Orejas -->
-          <circle cx="26" cy="48" r="5" fill="${g.skin}"/>
-          <circle cx="74" cy="48" r="5" fill="${g.skin}"/>
-          <!-- Rostro -->
-          <rect x="28" y="24" width="44" height="44" rx="20" fill="${g.skin}"/>
-          <!-- Pintura de camuflaje facial sutil -->
-          <line x1="32" y1="53" x2="39" y2="54" stroke="#3f4f29" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
-          <line x1="61" y1="54" x2="68" y2="53" stroke="#3f4f29" stroke-width="2.2" stroke-linecap="round" opacity="0.65"/>
-          <!-- Cejas -->
-          <path d="M34 41 Q39 39 44 41" stroke="${g.hairColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <path d="M56 41 Q61 39 66 41" stroke="${g.hairColor}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <!-- Ojos -->
-          <circle cx="39" cy="47" r="3.4" fill="#0f172a"/>
-          <circle cx="61" cy="47" r="3.4" fill="#0f172a"/>
-          <circle cx="40.2" cy="45.8" r="1.1" fill="#ffffff"/>
-          <circle cx="62.2" cy="45.8" r="1.1" fill="#ffffff"/>
-          <!-- Boca -->
-          <path d="M43 57 Q50 61 57 57" stroke="#5c2d16" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <!-- Pelo delantero -->
-          ${hairFront}
-          <!-- Accesorios -->
-          ${neckSVG}
-          ${glassesSVG}
-          ${hatSVG}
-          ${frontRelic}
-        </svg>
-      `;
+      let backLayer = eq.relic === 'aura' ? `<circle cx="50" cy="52" r="43" fill="none" stroke="#eab308" stroke-width="3" stroke-dasharray="6 4"/>` : '';
+      if (eq.relic === 'cape') backLayer += `<path d="M16 68 L84 68 L93 100 L7 100 Z" fill="#4d5e32"/>`;
+      return `<svg viewBox="0 0 100 100" class="w-full h-full"><rect width="100" height="100" fill="#2d3a1e"/>${backLayer}<path d="M16 100 C16 69, 84 69, 84 100 Z" fill="${g.outfit}" stroke="#1c1917" stroke-width="1.5"/><rect x="43" y="59" width="14" height="15" rx="4" fill="${g.skin}"/><rect x="28" y="24" width="44" height="44" rx="20" fill="${g.skin}"/><circle cx="39" cy="47" r="3.4" fill="#0f172a"/><circle cx="61" cy="47" r="3.4" fill="#0f172a"/></svg>`;
     }
 
     function renderAll() {
       checkAutomaticTimeCycles();
-      const badge = document.getElementById('castleCodeBadge');
-      badge.textContent = state.roomCode ? `📻 Sala: ${state.roomCode}` : '📻 Frecuencia: LOCAL';
+      document.getElementById('castleCodeBadge').textContent = state.roomCode ? `📻 Sala: ${state.roomCode}` : '📻 Frecuencia: LOCAL';
       document.getElementById('missionsCounterPill').textContent = `${state.tasks.length} Activa(s)`;
       renderChronicleHeader();
       renderGuardians();
@@ -1243,95 +757,44 @@
 
     function renderGuardians() {
       const grid = document.getElementById('guardiansGrid');
-      const countBadge = document.getElementById('guardianCountBadge');
-      countBadge.textContent = `${state.guardians.length} Efectivo(s)`;
-
+      document.getElementById('guardianCountBadge').textContent = `${state.guardians.length} Efectivo(s)`;
       if (state.guardians.length === 0) {
-        grid.innerHTML = `
-          <div class="col-span-full dossier-card rounded-xl p-8 text-center">
-            <p class="text-[#3a2618] font-bold mb-3">No hay efectivos alistados en el Cuartel General.</p>
-            <button onclick="openGuardianModal()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-sm cursor-pointer">
-              + Alistar Primer Efectivo
-            </button>
-          </div>
-        `;
+        grid.innerHTML = `<div class="col-span-full dossier-card rounded-xl p-8 text-center"><p class="text-[#3a2618] font-bold mb-3">No hay efectivos alistados.</p><button onclick="openGuardianModal()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-sm cursor-pointer">+ Alistar</button></div>`;
         return;
       }
-
       grid.innerHTML = state.guardians.map(g => {
         const stats = calculateStats(g.id);
         const equippedCount = Object.values(g.equipped || {}).filter(Boolean).length;
-        const pendingTreats = (g.claimedTreats || []).filter(c => !c.used);
-
-        const pendingBadgesHTML = pendingTreats.length > 0
-          ? `<div class="flex flex-wrap gap-1.5 pt-1">
-              ${pendingTreats.map(c => `
-                <span onclick="openTreatsModal('${g.id}')" class="cursor-pointer text-[11px] font-extrabold px-2.5 py-1 rounded bg-[#7f1d1d] text-[#fef2f2] flex items-center gap-1 shadow-sm">
-                  <span>${c.icon}</span> <span>Permiso activo: ${c.title}</span>
-                </span>
-              `).join('')}
-            </div>`
-          : '';
-
         return `
           <div class="dossier-card rounded-xl p-4 md:p-5 flex flex-col gap-4">
             <div class="flex items-center gap-4">
-              <div onclick="openArmoryModal('${g.id}')" class="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-[#253317] shrink-0 shadow-[3px_3px_0px_#3a2618] cursor-pointer group">
+              <div onclick="openArmoryModal('${g.id}')" class="relative w-20 h-20 rounded-xl overflow-hidden border-2 border-[#253317] shrink-0 shadow cursor-pointer group">
                 ${renderAvatarSVG(g)}
-                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-[10px] font-extrabold text-amber-300 uppercase transition">
-                  Equipar
-                </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-[10px] font-extrabold text-amber-300 uppercase transition">Equipar</div>
               </div>
-
               <div class="flex-1 min-w-0">
                 <div class="flex items-start justify-between gap-2">
                   <div>
-                    <h3 class="font-military text-lg text-[#253317] leading-tight truncate uppercase">${g.name}</h3>
+                    <h3 class="font-military text-lg text-[#253317] uppercase">${g.name}</h3>
                     <span class="font-typewriter text-xs font-bold text-[#4e3524]">${g.handle}</span>
                   </div>
-                  <button onclick="deleteGuardian('${g.id}')" title="Licenciar efectivo" class="text-[#6b5e49] hover:text-red-700 text-xs cursor-pointer p-1">🗑️</button>
+                  <button onclick="deleteGuardian('${g.id}')" class="text-[#6b5e49] hover:text-red-700 text-xs cursor-pointer p-1">🗑️</button>
                 </div>
-
-                <!-- BOTONES DE INTENDENCIA (REALES SEMANALES) Y CAPRICHOS (PASE MENSUAL) -->
                 <div class="flex flex-wrap items-center gap-2 mt-2.5">
-                  <button onclick="openArmoryModal('${g.id}')" class="btn-sand px-2.5 py-1 rounded-lg text-xs font-extrabold flex items-center gap-1.5 cursor-pointer">
-                    <span>🪖 Intendencia (${equippedCount})</span>
-                    <span class="px-1.5 py-0.5 bg-[#c27803] text-white rounded text-[10px] font-black">${g.coins || 0} 🪙</span>
-                  </button>
-
-                  <button onclick="openTreatsModal('${g.id}')" class="btn-sand px-2.5 py-1 rounded-lg text-xs font-extrabold flex items-center gap-1.5 cursor-pointer">
-                    <span>🎁 Caprichos</span>
-                    <span class="px-1.5 py-0.5 bg-[#7f1d1d] text-white rounded text-[10px] font-black">${g.monthTokens || 0} 🎟️</span>
-                  </button>
+                  <button onclick="openArmoryModal('${g.id}')" class="btn-sand px-2.5 py-1 rounded-lg text-xs font-extrabold flex items-center gap-1.5 cursor-pointer"><span>🪖 Intendencia</span> <span class="px-1 py-0.5 bg-[#c27803] text-white rounded text-[10px] font-black">${g.coins || 0} 🪙</span></button>
+                  <button onclick="openTreatsModal('${g.id}')" class="btn-sand px-2.5 py-1 rounded-lg text-xs font-extrabold flex items-center gap-1.5 cursor-pointer"><span>🎁 Caprichos</span> <span class="px-1 py-0.5 bg-[#7f1d1d] text-white rounded text-[10px] font-black">${g.monthTokens || 0} 🎟️</span></button>
                 </div>
               </div>
             </div>
-
-            ${pendingBadgesHTML}
-
-            <!-- BARRAS TÁCTICAS: INSTRUCCIÓN FÍSICA Y BASE Y SUMINISTROS -->
             <div class="space-y-3 bg-[#e4dbc6] p-3.5 rounded-lg border-2 border-[#9e9075]">
               ${checkZeroPenalties(g.id, stats)}
-              <!-- Barra de Instrucción Física -->
-              <div onclick="openMissionsBoardModal('hp')" class="cursor-pointer group" title="Ver misiones de Instrucción Física">
-                <div class="flex justify-between text-xs font-extrabold mb-1">
-                  <span class="text-[#991b1b] uppercase group-hover:underline">🏋️ INSTRUCCIÓN FÍSICA</span>
-                  <span class="text-[#26231e]">${stats.hp}% <span class="text-[#5c503e] font-semibold">(${stats.sportDone}/${stats.sportTotal})</span></span>
-                </div>
-                <div class="w-full h-3.5 bg-[#cbbd9f] rounded overflow-hidden border border-[#6b5e49] p-0.5">
-                  <div class="h-full rounded-sm bg-gradient-to-r from-[#991b1b] to-[#dc2626] bar-fill" style="width: ${stats.hp}%"></div>
-                </div>
+              <div onclick="openMissionsBoardModal('hp')" class="cursor-pointer group">
+                <div class="flex justify-between text-xs font-extrabold mb-1"><span class="text-[#991b1b] uppercase group-hover:underline">🏋️ INSTRUCCIÓN FÍSICA</span><span>${stats.hp}% (${stats.sportDone}/${stats.sportTotal})</span></div>
+                <div class="w-full h-3.5 bg-[#cbbd9f] rounded overflow-hidden border border-[#6b5e49] p-0.5"><div class="h-full rounded-sm bg-gradient-to-r from-[#991b1b] to-[#dc2626] bar-fill" style="width: ${stats.hp}%"></div></div>
               </div>
-
-              <!-- Barra de Base y Suministros -->
-              <div onclick="openMissionsBoardModal('mp')" class="cursor-pointer group" title="Ver misiones de Base y Suministros">
-                <div class="flex justify-between text-xs font-extrabold mb-1">
-                  <span class="text-[#1e3a8a] uppercase group-hover:underline">🏰 BASE Y SUMINISTROS</span>
-                  <span class="text-[#26231e]">${stats.mp}% <span class="text-[#5c503e] font-semibold">(${stats.manaDone}/${stats.manaTotal})</span></span>
-                </div>
-                <div class="w-full h-3.5 bg-[#cbbd9f] rounded overflow-hidden border border-[#6b5e49] p-0.5">
-                  <div class="h-full rounded-sm bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] bar-fill" style="width: ${stats.mp}%"></div>
-                </div>
+              <div onclick="openMissionsBoardModal('mp')" class="cursor-pointer group">
+                <div class="flex justify-between text-xs font-extrabold mb-1"><span class="text-[#1e3a8a] uppercase group-hover:underline">🏰 BASE Y SUMINISTROS</span><span>${stats.mp}% (${stats.manaDone}/${stats.manaTotal})</span></div>
+                <div class="w-full h-3.5 bg-[#cbbd9f] rounded overflow-hidden border border-[#6b5e49] p-0.5"><div class="h-full rounded-sm bg-gradient-to-r from-[#1e3a8a] to-[#2563eb] bar-fill" style="width: ${stats.mp}%"></div></div>
               </div>
             </div>
           </div>
@@ -1339,823 +802,234 @@
       }).join('');
     }
 
-    // MODAL TABLÓN DE MISIONES Y CLASIFICACIÓN
-    function openMissionsBoardModal(initialFilter = 'all') {
-      currentMissionFilter = initialFilter;
+    function openMissionsBoardModal(filter = 'all') {
+      currentMissionFilter = filter;
       updateMissionFilterTabsUI();
       renderTasks();
-      const m = document.getElementById('missionsBoardModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
+      document.getElementById('missionsBoardModal').classList.remove('hidden');
+      document.getElementById('missionsBoardModal').classList.add('flex');
     }
+    function closeMissionsBoardModal() { document.getElementById('missionsBoardModal').classList.add('hidden'); document.getElementById('missionsBoardModal').classList.remove('flex'); }
 
-    function closeMissionsBoardModal() {
-      const m = document.getElementById('missionsBoardModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    function setMissionBoardFilter(filterKey) {
-      currentMissionFilter = filterKey;
-      updateMissionFilterTabsUI();
-      renderTasks();
-    }
-
+    function setMissionBoardFilter(filterKey) { currentMissionFilter = filterKey; updateMissionFilterTabsUI(); renderTasks(); }
     function updateMissionFilterTabsUI() {
-      const tabs = [
-        { id: 'all', activeClass: 'bg-[#253317] border-[#1e2910] text-white shadow' },
-        { id: 'hp', activeClass: 'bg-[#991b1b] border-[#450a0a] text-white shadow' },
-        { id: 'mp', activeClass: 'bg-[#1e3a8a] border-[#172554] text-white shadow' },
-        { id: 'shopping', activeClass: 'bg-[#3c4f24] border-[#1e2910] text-white shadow' }
-      ];
-      const inactiveClass = 'bg-[#e4dbc6] border-[#8c7f67] text-[#3a2618] hover:bg-[#dfd5c0]';
-
-      tabs.forEach(t => {
-        const el = document.getElementById('tabFilter_' + t.id);
-        if (!el) return;
-        el.className = `py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5 ${
-          currentMissionFilter === t.id ? t.activeClass : inactiveClass
-        }`;
+      ['all', 'hp', 'mp', 'shopping'].forEach(id => {
+        const el = document.getElementById('tabFilter_' + id);
+        if (el) el.className = `py-2 px-3 rounded-lg text-xs font-extrabold uppercase border-2 transition cursor-pointer flex items-center justify-center gap-1.5 ${currentMissionFilter === id ? 'bg-[#253317] border-[#1e2910] text-white shadow' : 'bg-[#e4dbc6] border-[#8c7f67] text-[#3a2618]'}`;
       });
     }
 
     function renderTasks() {
       const container = document.getElementById('tasksContainer');
-      const summaryEl = document.getElementById('filterSummaryText');
-
-      const filteredTasks = state.tasks.filter(t => {
+      const filtered = state.tasks.filter(t => {
         if (currentMissionFilter === 'hp') return t.type === 'sport';
         if (currentMissionFilter === 'mp') return t.type === 'home' || t.type === 'shopping';
         if (currentMissionFilter === 'shopping') return t.type === 'shopping';
         return true;
       });
-
-      const filterLabelMap = {
-        all: 'Mostrando todas las órdenes activas y suministros',
-        hp: 'Mostrando órdenes de Instrucción Física',
-        mp: 'Mostrando órdenes de Base y Suministros',
-        shopping: 'Mostrando listas de Suministros de Intendencia'
-      };
-      if (summaryEl) {
-        summaryEl.textContent = `${filterLabelMap[currentMissionFilter]} (${filteredTasks.length})`;
-      }
-
-      if (filteredTasks.length === 0) {
-        container.innerHTML = `
-          <div class="dossier-card rounded-xl p-8 text-center">
-            <p class="text-[#3a2618] font-bold mb-3">No hay órdenes registradas en esta clasificación.</p>
-            <button onclick="openTaskModal()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-sm cursor-pointer">
-              🎯 + Dictar Nueva Orden
-            </button>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filteredTasks.map(task => {
-        const isSport = task.type === 'sport';
+      document.getElementById('filterSummaryText').textContent = `Total órdenes: ${filtered.length}`;
+      if (filtered.length === 0) { container.innerHTML = `<div class="dossier-card rounded-xl p-8 text-center"><p class="text-[#3a2618] font-bold">No hay órdenes en esta clasificación.</p></div>`; return; }
+      container.innerHTML = filtered.map(task => {
         const isShop = task.type === 'shopping';
-
-        const badgeStyle = isSport
-          ? 'bg-[#991b1b] text-white'
-          : isShop
-          ? 'bg-[#3c4f24] text-white'
-          : 'bg-[#1e3a8a] text-white';
-
-        const badgeText = isSport
-          ? '🏋️ Instrucción Física'
-          : isShop
-          ? '📦 Base y Suministros • Abastecimiento Común'
-          : '🏰 Base y Suministros • Mantenimiento del Cuartel';
-
         if (isShop) {
-          const names = task.assignees
-            .map(id => state.guardians.find(g => g.id === id)?.name)
-            .filter(Boolean)
-            .join(', ');
-
-          const itemsHTML = (task.items || []).map(item => `
-            <div onclick="toggleShoppingItem('${task.id}', '${item.id}')" class="flex items-center justify-between px-3 py-2 rounded-lg bg-white hover:bg-[#faf6ed] border-2 border-[#9e9075] cursor-pointer">
-              <div class="flex items-center gap-2.5">
-                <input type="checkbox" ${item.done ? 'checked' : ''} class="w-4 h-4 accent-[#3c4f24] pointer-events-none" />
-                <span class="text-sm font-bold ${item.done ? 'line-through text-[#8c7f67]' : 'text-[#26231e]'}">${item.text}</span>
-              </div>
-              <button onclick="event.stopPropagation(); removeShoppingItem('${task.id}', '${item.id}')" class="text-xs text-[#8c7f67] hover:text-red-700 font-bold px-1.5">✕</button>
-            </div>
-          `).join('');
-
-          return `
-            <div class="dossier-card rounded-xl p-4 space-y-3">
-              <div class="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <span class="inline-block text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded ${badgeStyle} mb-1">${badgeText}</span>
-                  <h4 class="font-military text-base md:text-lg text-[#253317] uppercase">${task.title}</h4>
-                  <p class="text-xs text-[#4e3524] font-bold">Efectivos asignados: <strong>${names || 'Escuadrón completo'}</strong></p>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button onclick="toggleCompleteShopping('${task.id}')" class="px-3.5 py-2 rounded-lg font-extrabold text-xs uppercase cursor-pointer ${
-                    task.completedCommon
-                      ? 'btn-army'
-                      : 'btn-amber-tactical'
-                  }">
-                    ${task.completedCommon ? '✅ ¡Suministros Completados!' : '📦 Confirmar Suministros'}
-                  </button>
-                  <button onclick="deleteTask('${task.id}')" class="text-[#6b5e49] hover:text-red-700 text-sm px-1 cursor-pointer">🗑️</button>
-                </div>
-              </div>
-
-              <div class="flex gap-2">
-                <input id="shopInput_${task.id}" type="text" placeholder="Anotar suministro necesario (ej: Leche, Pan, Carne, Fruta...)" onkeydown="if(event.key==='Enter') addShoppingItem('${task.id}')" class="flex-1 px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] text-sm font-bold text-[#26231e] focus:outline-none focus:border-[#253317]" />
-                <button onclick="addShoppingItem('${task.id}')" class="btn-army px-4 py-2 rounded-lg text-xs font-extrabold cursor-pointer">+ Anotar</button>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                ${itemsHTML || '<p class="text-xs text-[#5c503e] font-semibold col-span-full">Lista de suministros vacía. Registra los víveres requeridos arriba.</p>'}
-              </div>
-            </div>
-          `;
+          const itemsHTML = (task.items || []).map(i => `<div onclick="toggleShoppingItem('${task.id}', '${i.id}')" class="flex items-center justify-between px-3 py-2 rounded-lg bg-white border-2 border-[#9e9075] cursor-pointer"><span class="text-sm font-bold ${i.done ? 'line-through text-[#8c7f67]' : ''}">${i.text}</span></div>`).join('');
+          return `<div class="dossier-card rounded-xl p-4 space-y-3"><div class="flex justify-between"><h4 class="font-military text-base uppercase">${task.title}</h4><button onclick="toggleCompleteShopping('${task.id}')" class="btn-amber-tactical px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase">${task.completedCommon ? '✅ Hecho' : '📦 Confirmar'}</button></div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${itemsHTML}</div></div>`;
         }
-
         const rowsHTML = task.assignees.map(gId => {
           const g = state.guardians.find(x => x.id === gId);
           if (!g) return '';
-          const doneCount = task.progress[gId] || 0;
-          const isComplete = doneCount >= task.target;
-
-          let pills = '';
-          for (let i = 1; i <= task.target; i++) {
-            const checked = i <= doneCount;
-            pills += `
-              <button onclick="setTaskProgress('${task.id}', '${gId}', ${checked && i === doneCount ? i - 1 : i})"
-                class="w-7 h-7 rounded text-xs font-extrabold border-2 transition cursor-pointer ${
-                  checked
-                    ? isSport
-                      ? 'bg-[#991b1b] border-[#450a0a] text-white'
-                      : 'bg-[#1e3a8a] border-[#172554] text-white'
-                    : 'bg-white border-[#8c7f67] text-[#5c503e]'
-                }">
-                ${i}
-              </button>
-            `;
-          }
-
-          return `
-            <div class="flex flex-wrap items-center justify-between gap-2 bg-[#e4dbc6] px-3.5 py-2.5 rounded-lg border-2 border-[#9e9075]">
-              <div class="flex items-center gap-2">
-                <span class="font-extrabold text-sm text-[#253317] uppercase">${g.name}</span>
-                <span class="text-xs text-[#4e3524] font-bold">(${doneCount}/${task.target} esta semana)</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1">${pills}</div>
-                <button onclick="incrementTaskProgress('${task.id}', '${gId}')"
-                  class="px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase cursor-pointer ${
-                    isComplete
-                      ? 'bg-[#3c4f24] text-white border-2 border-[#1e2910]'
-                      : 'btn-amber-tactical'
-                  }">
-                  ${isComplete ? '✅ ¡Completado!' : '🎯 ¡Cumplido!'}
-                </button>
-              </div>
-            </div>
-          `;
+          const done = task.progress[gId] || 0;
+          return `<div class="flex justify-between items-center bg-[#e4dbc6] px-3.5 py-2.5 rounded-lg border-2 border-[#9e9075]"><span class="font-extrabold text-sm uppercase">${g.name} (${done}/${task.target})</span><button onclick="incrementTaskProgress('${task.id}', '${gId}')" class="btn-amber-tactical px-3 py-1 rounded text-xs font-extrabold uppercase">🎯 +1</button></div>`;
         }).join('');
-
-        return `
-          <div class="dossier-card rounded-xl p-4 space-y-3">
-            <div class="flex items-start justify-between gap-2">
-              <div>
-                <span class="inline-block text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded ${badgeStyle} mb-1">${badgeText}</span>
-                <h4 class="font-military text-base md:text-lg text-[#253317] uppercase">${task.title}</h4>
-              </div>
-              <button onclick="deleteTask('${task.id}')" class="text-[#6b5e49] hover:text-red-700 text-sm px-1 cursor-pointer">🗑️</button>
-            </div>
-            <div class="space-y-2">
-              ${rowsHTML}
-            </div>
-          </div>
-        `;
+        return `<div class="dossier-card rounded-xl p-4 space-y-3"><h4 class="font-military text-base uppercase">${task.title}</h4><div class="space-y-2">${rowsHTML}</div></div>`;
       }).join('');
     }
 
-    // GESTIÓN DE GUARDIANES
     function autoFillHandle() {
-      const nameVal = document.getElementById('gNameInput').value.trim();
-      const handleInput = document.getElementById('gHandleInput');
-      if (nameVal) {
-        handleInput.value = '@' + nameVal.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]/g, '');
-      }
+      const name = document.getElementById('gNameInput').value.trim();
+      if (name) document.getElementById('gHandleInput').value = '@' + name.toLowerCase().replace(/[^a-z0-9]/g, '');
     }
 
-    function openGuardianModal() {
-      document.getElementById('gNameInput').value = '';
-      document.getElementById('gHandleInput').value = '';
-      updateGuardianPreview();
-      const m = document.getElementById('guardianModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-      setTimeout(() => document.getElementById('gNameInput').focus(), 50);
-    }
-
-    function closeGuardianModal() {
-      const m = document.getElementById('guardianModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
-    function updateGuardianPreview() {
-      const mock = {
-        id: 'preview',
-        skin: document.getElementById('gSkinInput').value,
-        hairStyle: document.getElementById('gHairStyleInput').value,
-        hairColor: document.getElementById('gHairColorInput').value,
-        outfit: document.getElementById('gOutfitInput').value,
-        equipped: {}
-      };
-      document.getElementById('newGuardianPreview').innerHTML = renderAvatarSVG(mock);
-    }
+    function openGuardianModal() { document.getElementById('gNameInput').value = ''; document.getElementById('gHandleInput').value = ''; updateGuardianPreview(); document.getElementById('guardianModal').classList.remove('hidden'); document.getElementById('guardianModal').classList.add('flex'); }
+    function closeGuardianModal() { document.getElementById('guardianModal').classList.add('hidden'); document.getElementById('guardianModal').classList.remove('flex'); }
+    function updateGuardianPreview() { document.getElementById('newGuardianPreview').innerHTML = renderAvatarSVG({ id: 'p', skin: document.getElementById('gSkinInput').value, hairStyle: document.getElementById('gHairStyleInput').value, hairColor: '#2c1b18', outfit: '#3c4f24', equipped: {} }); }
 
     function saveNewGuardian() {
       const name = document.getElementById('gNameInput').value.trim();
-      if (!name) {
-        showToast('⚠️ Escribe el nombre del efectivo');
-        return;
-      }
-      let handle = document.getElementById('gHandleInput').value.trim();
-      if (!handle) handle = '@' + name.toLowerCase().replace(/[^a-z0-9]/g, '');
-      if (!handle.startsWith('@')) handle = '@' + handle;
-
-      state.guardians.push({
-        id: 'g_' + Date.now(),
-        name,
-        handle,
-        skin: document.getElementById('gSkinInput').value,
-        hairStyle: document.getElementById('gHairStyleInput').value,
-        hairColor: document.getElementById('gHairColorInput').value,
-        outfit: document.getElementById('gOutfitInput').value,
-        coins: 5,
-        monthTokens: 0,
-        unlocked: [],
-        equipped: { hat: null, glasses: null, neck: null, relic: null },
-        claimedTreats: []
-      });
-
-      saveState();
-      renderAll();
-      closeGuardianModal();
-      showToast(`🪖 ¡${name} (${handle}) incorporado al Escuadrón!`);
+      if (!name) return;
+      state.guardians.push({ id: 'g_' + Date.now(), name, handle: document.getElementById('gHandleInput').value.trim() || '@' + name.toLowerCase(), skin: document.getElementById('gSkinInput').value, hairStyle: document.getElementById('gHairStyleInput').value, hairColor: '#2c1b18', outfit: '#3c4f24', coins: 5, monthTokens: 0, unlocked: [], equipped: { hat: null, glasses: null, neck: null, relic: null }, claimedTreats: [] });
+      saveState(); renderAll(); closeGuardianModal(); showToast(`🪖 ¡${name} alistado!`);
     }
 
-    function deleteGuardian(id) {
-      state.guardians = state.guardians.filter(g => g.id !== id);
-      state.tasks.forEach(t => {
-        t.assignees = t.assignees.filter(a => a !== id);
-        delete t.progress[id];
-      });
-      saveState();
-      renderAll();
-      showToast('Efectivo licenciado del servicio');
-    }
-
-    function openSearchUserModal() {
-      document.getElementById('searchHandleInput').value = '';
-      const m = document.getElementById('searchUserModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function closeSearchUserModal() {
-      const m = document.getElementById('searchUserModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
+    function deleteGuardian(id) { state.guardians = state.guardians.filter(g => g.id !== id); saveState(); renderAll(); }
+    function openSearchUserModal() { document.getElementById('searchHandleInput').value = ''; document.getElementById('searchUserModal').classList.remove('hidden'); document.getElementById('searchUserModal').classList.add('flex'); }
+    function closeSearchUserModal() { document.getElementById('searchUserModal').classList.add('hidden'); document.getElementById('searchUserModal').classList.remove('flex'); }
     function quickAddByHandle() {
-      let raw = document.getElementById('searchHandleInput').value.trim();
-      if (!raw) return;
-      if (!raw.startsWith('@')) raw = '@' + raw;
-      const cleanName = raw.replace('@', '');
-      const capName = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
-
-      state.guardians.push({
-        id: 'g_' + Date.now(),
-        name: capName,
-        handle: raw.toLowerCase(),
-        skin: '#f5cba7',
-        hairStyle: 'short',
-        hairColor: '#2c1b18',
-        outfit: '#3c4f24',
-        coins: 5,
-        monthTokens: 0,
-        unlocked: [],
-        equipped: { hat: null, glasses: null, neck: null, relic: null },
-        claimedTreats: []
-      });
-      saveState();
-      renderAll();
-      closeSearchUserModal();
-      showToast(`🪖 ¡${capName} (${raw}) incorporado al Escuadrón!`);
+      const h = document.getElementById('searchHandleInput').value.trim();
+      if (!h) return;
+      state.guardians.push({ id: 'g_' + Date.now(), name: h.replace('@',''), handle: h, skin: '#f5cba7', hairStyle: 'short', hairColor: '#2c1b18', outfit: '#3c4f24', coins: 5, monthTokens: 0, unlocked: [], equipped: { hat: null, glasses: null, neck: null, relic: null }, claimedTreats: [] });
+      saveState(); renderAll(); closeSearchUserModal(); showToast(`🪖 Efectivo añadido.`);
     }
 
-    // CREACIÓN DE MISIONES Y SUMINISTROS
     function openTaskModal() {
-      if (state.guardians.length === 0) {
-        showToast('⚠️ Primero alista al menos a un efectivo');
-        openGuardianModal();
-        return;
-      }
+      if (state.guardians.length === 0) { openGuardianModal(); return; }
       document.getElementById('tTitleInput').value = '';
-      document.getElementById('tTargetInput').value = 3;
-      document.getElementById('tShopItemsInput').value = '';
-
-      if (currentMissionFilter === 'hp') setTaskType('sport');
-      else if (currentMissionFilter === 'shopping') setTaskType('shopping');
-      else if (currentMissionFilter === 'mp') setTaskType('home');
-      else setTaskType('sport');
-
-      const list = document.getElementById('tAssigneesList');
-      list.innerHTML = state.guardians.map(g => `
-        <label class="flex items-center gap-2 p-2.5 rounded-lg bg-white border-2 border-[#8c7f67] cursor-pointer">
-          <input type="checkbox" name="taskAssignee" value="${g.id}" checked class="w-4 h-4 accent-[#3c4f24]" />
-          <span class="text-sm font-extrabold text-[#253317] truncate">${g.name}</span>
-        </label>
-      `).join('');
-
-      const m = document.getElementById('taskModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-      setTimeout(() => document.getElementById('tTitleInput').focus(), 50);
+      setTaskType('sport');
+      document.getElementById('tAssigneesList').innerHTML = state.guardians.map(g => `<label class="flex items-center gap-2 p-2 rounded bg-white border-2 border-[#8c7f67]"><input type="checkbox" name="taskAssignee" value="${g.id}" checked class="accent-[#3c4f24]"/> <span class="text-sm font-bold">${g.name}</span></label>`).join('');
+      document.getElementById('taskModal').classList.remove('hidden'); document.getElementById('taskModal').classList.add('flex');
     }
-
-    function closeTaskModal() {
-      const m = document.getElementById('taskModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
+    function closeTaskModal() { document.getElementById('taskModal').classList.add('hidden'); document.getElementById('taskModal').classList.remove('flex'); }
+    function setTaskType(t) {
+      currentTaskType = t;
+      ['sport', 'home', 'shopping'].forEach(type => {
+        const el = document.getElementById('btnType' + (type==='sport'?'Sport':type==='home'?'Home':'Shop'));
+        if (el) el.className = `p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer ${currentTaskType === type ? 'bg-[#3c4f24] text-white border-black' : 'bg-white text-[#4e3524]'}`;
+      });
+      document.getElementById('tTargetContainer').classList.toggle('hidden', t === 'shopping');
+      document.getElementById('tShoppingInitialContainer').classList.toggle('hidden', t !== 'shopping');
     }
-
-    function setTaskType(type) {
-      currentTaskType = type;
-      const base = 'p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer bg-white border-[#8c7f67] text-[#4e3524]';
-      document.getElementById('btnTypeSport').className = base;
-      document.getElementById('btnTypeHome').className = base;
-      document.getElementById('btnTypeShop').className = base;
-
-      if (type === 'sport') {
-        document.getElementById('btnTypeSport').className = 'p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer bg-[#991b1b] border-[#450a0a] text-white';
-        document.getElementById('tTargetContainer').classList.remove('hidden');
-        document.getElementById('tShoppingInitialContainer').classList.add('hidden');
-      } else if (type === 'home') {
-        document.getElementById('btnTypeHome').className = 'p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer bg-[#1e3a8a] border-[#172554] text-white';
-        document.getElementById('tTargetContainer').classList.remove('hidden');
-        document.getElementById('tShoppingInitialContainer').classList.add('hidden');
-      } else {
-        document.getElementById('btnTypeShop').className = 'p-2.5 rounded-lg border-2 text-xs font-extrabold flex flex-col items-center gap-1 cursor-pointer bg-[#3c4f24] border-[#1e2910] text-white';
-        document.getElementById('tTargetContainer').classList.add('hidden');
-        document.getElementById('tShoppingInitialContainer').classList.remove('hidden');
-        const tInput = document.getElementById('tTitleInput');
-        if (!tInput.value.trim()) tInput.value = 'Abastecimiento de Suministros de la Base';
-      }
-    }
-
-    function selectAllGuardiansInModal() {
-      document.querySelectorAll('input[name="taskAssignee"]').forEach(cb => cb.checked = true);
-    }
+    function selectAllGuardiansInModal() { document.querySelectorAll('input[name="taskAssignee"]').forEach(cb => cb.checked = true); }
 
     function saveNewTask() {
       const title = document.getElementById('tTitleInput').value.trim();
-      if (!title) {
-        showToast('⚠️ Escribe la descripción de la orden');
-        return;
-      }
+      if (!title) return;
       const assignees = Array.from(document.querySelectorAll('input[name="taskAssignee"]:checked')).map(cb => cb.value);
-      if (assignees.length === 0) {
-        showToast('⚠️ Convoca al menos a un efectivo');
-        return;
-      }
-
-      const target = currentTaskType === 'shopping' ? 1 : Math.max(1, parseInt(document.getElementById('tTargetInput').value, 10) || 1);
-      const progress = {};
-      assignees.forEach(id => { progress[id] = 0; });
-
+      if (assignees.length === 0) return;
+      const target = currentTaskType === 'shopping' ? 1 : parseInt(document.getElementById('tTargetInput').value) || 1;
       let items = [];
       if (currentTaskType === 'shopping') {
         const raw = document.getElementById('tShopItemsInput').value;
-        if (raw.trim()) {
-          items = raw.split(',').map((txt, idx) => ({
-            id: 'item_' + Date.now() + '_' + idx,
-            text: txt.trim(),
-            done: false
-          })).filter(x => x.text);
-        }
+        if (raw) items = raw.split(',').map((txt, idx) => ({ id: 'i_'+idx, text: txt.trim(), done: false })).filter(x => x.text);
       }
-
-      state.tasks.unshift({
-        id: 't_' + Date.now(),
-        type: currentTaskType,
-        title,
-        target,
-        assignees,
-        progress,
-        completedCommon: false,
-        items
-      });
-
-      saveState();
-      renderAll();
-      closeTaskModal();
-      showToast('🎯 ¡Orden publicada! Las barras han descendido en espera de su cumplimiento.');
-    }
-
-    function setTaskProgress(taskId, guardianId, val) {
-      const task = state.tasks.find(t => t.id === taskId);
-      if (!task) return;
-      task.progress[guardianId] = Math.max(0, Math.min(task.target, val));
-      saveState();
-      renderAll();
+      let progress = {}; assignees.forEach(id => { progress[id] = 0; });
+      state.tasks.unshift({ id: 't_' + Date.now(), type: currentTaskType, title, target, assignees, progress, completedCommon: false, items });
+      saveState(); renderAll(); closeTaskModal(); showToast('🎯 Orden publicada');
     }
 
     function incrementTaskProgress(taskId, guardianId) {
-      const task = state.tasks.find(t => t.id === taskId);
-      if (!task) return;
-      const cur = task.progress[guardianId] || 0;
-      if (cur < task.target) {
-        task.progress[guardianId] = cur + 1;
-        showToast('🎖️ ¡Objetivo cumplido! Tu barra operativa se restaura.');
-      } else {
-        task.progress[guardianId] = 0;
-      }
-      saveState();
-      renderAll();
+      const t = state.tasks.find(x => x.id === taskId);
+      if (!t) return;
+      t.progress[guardianId] = (t.progress[guardianId] || 0) < t.target ? t.progress[guardianId] + 1 : 0;
+      saveState(); renderAll();
     }
-
-    function addShoppingItem(taskId) {
-      const input = document.getElementById('shopInput_' + taskId);
-      if (!input) return;
-      const text = input.value.trim();
-      if (!text) return;
-      const task = state.tasks.find(t => t.id === taskId);
-      if (!task) return;
-      task.items.push({ id: 'i_' + Date.now(), text, done: false });
-      input.value = '';
-      saveState();
-      renderAll();
-    }
-
     function toggleShoppingItem(taskId, itemId) {
-      const task = state.tasks.find(t => t.id === taskId);
-      if (!task) return;
-      const item = task.items.find(i => i.id === itemId);
-      if (item) item.done = !item.done;
-      saveState();
-      renderAll();
+      const t = state.tasks.find(x => x.id === taskId);
+      if (!t) return;
+      const i = t.items.find(x => x.id === itemId);
+      if (i) i.done = !i.done;
+      saveState(); renderAll();
     }
-
-    function removeShoppingItem(taskId, itemId) {
-      const task = state.tasks.find(t => t.id === taskId);
-      if (!task) return;
-      task.items = task.items.filter(i => i.id !== itemId);
-      saveState();
-      renderAll();
-    }
-
     function toggleCompleteShopping(taskId) {
-      const task = state.tasks.find(t => t.id === taskId);
-      if (!task) return;
-      task.completedCommon = !task.completedCommon;
-      if (task.completedCommon) {
-        task.items.forEach(i => i.done = true);
-        showToast('📦 ¡Suministros abastecidos! Se restaura la barra de Base y Suministros del escuadrón.');
-      }
-      saveState();
-      renderAll();
+      const t = state.tasks.find(x => x.id === taskId);
+      if (!t) return;
+      t.completedCommon = !t.completedCommon;
+      saveState(); renderAll();
     }
+    function deleteTask(id) { state.tasks = state.tasks.filter(t => t.id !== id); saveState(); renderAll(); }
 
-    function deleteTask(taskId) {
-      state.tasks = state.tasks.filter(t => t.id !== taskId);
-      saveState();
-      renderAll();
-      showToast('Orden archivada');
-    }
-
-    // ARMERÍA / INTENDENCIA DEL AVATAR (5 Y 10 REALES)
-    function openArmoryModal(guardianId) {
-      activeArmoryGuardianId = guardianId;
-      renderArmoryContent();
-      const m = document.getElementById('armoryModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function closeArmoryModal() {
-      const m = document.getElementById('armoryModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-      activeArmoryGuardianId = null;
-    }
-
-    function renderArmoryContent() {
-      const g = state.guardians.find(x => x.id === activeArmoryGuardianId);
-      if (!g) return;
-
+    function openArmoryModal(gId) {
+      activeArmoryGuardianId = gId;
+      const g = state.guardians.find(x => x.id === gId);
       document.getElementById('armoryTitle').textContent = `🪖 Intendencia de ${g.name}`;
-      document.getElementById('armoryCoinsInfo').textContent = `Reales disponibles: ${g.coins || 0} 🪙 (Ganas +5 🪙 cada semana al 100%)`;
+      document.getElementById('armoryCoinsInfo').textContent = `Reales: ${g.coins || 0} 🪙`;
       document.getElementById('armoryAvatarPreview').innerHTML = renderAvatarSVG(g);
-
-      const categories = [
-        { key: 'hat', label: '🪖 Boinas, Cascos e Insignias' },
-        { key: 'glasses', label: '🕶️ Gafas Tácticas y Ópticas' },
-        { key: 'neck', label: '🧣 Pañuelos de Campaña y Condecoraciones' },
-        { key: 'relic', label: '🦅 Equipamiento Especial y Compañeros' }
-      ];
-
-      document.getElementById('armoryCatalog').innerHTML = categories.map(cat => {
-        const items = ARMORY_ITEMS.filter(a => a.slot === cat.key);
-        return `
-          <div>
-            <h4 class="text-xs font-extrabold uppercase text-[#253317] mb-2">${cat.label}</h4>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-              ${items.map(acc => {
-                const isUnlocked = g.unlocked.includes(acc.id);
-                const isEquipped = g.equipped[cat.key] === acc.id;
-                const isElite = acc.price >= 10;
-
-                return `
-                  <button onclick="handleArmoryItemClick('${acc.id}')"
-                    class="p-3 rounded-xl border-2 text-left transition flex flex-col justify-between gap-2 cursor-pointer ${
-                      isEquipped
-                        ? 'bg-[#3c4f24] border-[#1e2910] text-white shadow-md'
-                        : isUnlocked
-                        ? 'bg-white border-[#3c4f24] text-[#26231e]'
-                        : 'bg-[#e8dfc9] border-[#9e9075] text-[#3a2618] hover:bg-[#dfd5c0]'
-                    }">
-                    <div class="flex items-center justify-between">
-                      <span class="text-2xl">${acc.icon}</span>
-                      <span class="text-[10px] font-black px-2 py-0.5 rounded ${
-                        isEquipped
-                          ? 'bg-amber-400 text-slate-950'
-                          : isUnlocked
-                          ? 'bg-emerald-700 text-white'
-                          : isElite
-                          ? 'bg-[#7f1d1d] text-white'
-                          : 'bg-[#c27803] text-white'
-                      }">
-                        ${isEquipped ? 'Equipado' : isUnlocked ? 'En propiedad' : `${acc.price} 🪙`}
-                      </span>
-                    </div>
-                    <div>
-                      <div class="text-xs font-extrabold leading-tight">${acc.name}</div>
-                      <div class="text-[10px] opacity-80 font-bold mt-0.5">
-                        ${acc.tier} • ${acc.price} Reales
-                      </div>
-                    </div>
-                  </button>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
+      document.getElementById('armoryCatalog').innerHTML = ARMORY_ITEMS.map(acc => {
+        const isUnlocked = g.unlocked.includes(acc.id);
+        const isEquipped = g.equipped[acc.slot] === acc.id;
+        return `<button onclick="handleArmoryItemClick('${acc.id}')" class="p-3 rounded-xl border-2 text-left flex flex-col justify-between gap-2 cursor-pointer ${isEquipped ? 'bg-[#3c4f24] text-white' : isUnlocked ? 'bg-white text-[#26231e]' : 'bg-[#e8dfc9] text-[#3a2618]'}"><div class="flex justify-between"><span class="text-2xl">${acc.icon}</span><span class="text-[10px] font-black px-1.5 py-0.5 rounded bg-black/20 text-white">${isEquipped ? 'Puesto' : isUnlocked ? 'Tuyo' : acc.price + ' 🪙'}</span></div><div class="text-xs font-extrabold">${acc.name}</div></button>`;
       }).join('');
+      document.getElementById('armoryModal').classList.remove('hidden'); document.getElementById('armoryModal').classList.add('flex');
     }
+    function closeArmoryModal() { document.getElementById('armoryModal').classList.add('hidden'); document.getElementById('armoryModal').classList.remove('flex'); }
 
     function handleArmoryItemClick(accId) {
       const g = state.guardians.find(x => x.id === activeArmoryGuardianId);
       const acc = ARMORY_ITEMS.find(a => a.id === accId);
       if (!g || !acc) return;
-
       if (!g.unlocked.includes(accId)) {
-        if ((g.coins || 0) < acc.price) {
-          showToast(`🔒 Requiere ${acc.price} Reales (🪙) y dispones de ${g.coins || 0} 🪙. ¡Culmina la semana al 100% para recibir +5 🪙!`);
-          return;
-        }
-        g.coins -= acc.price;
-        g.unlocked.push(accId);
-        g.equipped[acc.slot] = accId;
-        showToast(`🪖 ¡"${acc.name}" adquirido y equipado por ${acc.price} Reales!`);
+        if ((g.coins || 0) < acc.price) { showToast('🔒 Reales insuficientes.'); return; }
+        g.coins -= acc.price; g.unlocked.push(accId); g.equipped[acc.slot] = accId;
       } else {
         g.equipped[acc.slot] = g.equipped[acc.slot] === accId ? null : accId;
       }
-
-      saveState();
-      renderArmoryContent();
-      renderGuardians();
+      saveState(); openArmoryModal(g.id); renderGuardians();
     }
 
-    // CAPRICHOS DE FIN DE MES
-    function openTreatsModal(guardianId) {
-      activeTreatsGuardianId = guardianId;
-      renderTreatsModalContent();
-      const m = document.getElementById('treatsModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function closeTreatsModal() {
-      const m = document.getElementById('treatsModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-      activeTreatsGuardianId = null;
-    }
-
-    function renderTreatsModalContent() {
-      const g = state.guardians.find(x => x.id === activeTreatsGuardianId);
-      if (!g) return;
-
+    function openTreatsModal(gId) {
+      activeTreatsGuardianId = gId;
+      const g = state.guardians.find(x => x.id === gId);
       document.getElementById('treatsTitle').textContent = `🎁 Caprichos de ${g.name}`;
-      document.getElementById('treatsTokensInfo').textContent = `Pases de Permiso disponibles: ${g.monthTokens || 0} 🎟️`;
-
-      const catalogGrid = document.getElementById('treatsCatalogGrid');
-      catalogGrid.innerHTML = state.treatsCatalog.map(tr => `
-        <div class="p-3 rounded-xl bg-white border-2 border-[#8c7f67] flex items-center justify-between gap-2">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="text-2xl shrink-0">${tr.icon}</span>
-            <span class="text-xs font-extrabold text-[#26231e] leading-snug">${tr.title}</span>
-          </div>
-          <div class="flex items-center gap-1 shrink-0">
-            <button onclick="redeemTreat('${tr.id}')" class="btn-amber-tactical px-3 py-1.5 rounded-lg font-extrabold text-xs cursor-pointer">
-              Canjear 1 🎟️
-            </button>
-            <button onclick="removeCatalogTreat('${tr.id}')" class="text-[#8c7f67] hover:text-red-700 text-xs font-bold px-1 cursor-pointer">✕</button>
-          </div>
-        </div>
-      `).join('');
-
-      const claimedBox = document.getElementById('claimedTreatsList');
-      const claimed = g.claimedTreats || [];
-      if (claimed.length === 0) {
-        claimedBox.innerHTML = `<p class="text-xs text-[#5c503e] italic font-semibold">Todavía no has canjeado ningún capricho este mes.</p>`;
-      } else {
-        claimedBox.innerHTML = claimed.map(c => `
-          <div class="flex items-center justify-between px-3.5 py-2.5 rounded-xl border-2 ${c.used ? 'bg-[#e4dbc6] border-[#9e9075] opacity-65' : 'bg-white border-[#7f1d1d]'}">
-            <div class="flex items-center gap-2.5">
-              <span class="text-xl">${c.icon}</span>
-              <div>
-                <div class="text-xs font-extrabold ${c.used ? 'line-through text-[#5c503e]' : 'text-[#253317]'}">${c.title}</div>
-                <div class="text-[10px] text-[#4e3524] font-bold">${c.used ? '✅ Capricho ya disfrutado' : '🔥 Pendiente de cumplimiento por tu pareja'}</div>
-              </div>
-            </div>
-            <button onclick="toggleClaimedTreatUsed('${c.claimId}')" class="px-3 py-1 rounded-lg text-xs font-extrabold cursor-pointer ${
-              c.used ? 'btn-sand' : 'btn-army'
-            }">
-              ${c.used ? 'Reabrir' : '✅ ¡Disfrutado!'}
-            </button>
-          </div>
-        `).join('');
-      }
+      document.getElementById('treatsTokensInfo').textContent = `Pases de Permiso: ${g.monthTokens || 0} 🎟️`;
+      document.getElementById('treatsCatalogGrid').innerHTML = state.treatsCatalog.map(tr => `<div class="p-3 rounded-xl bg-white border-2 border-[#8c7f67] flex justify-between items-center"><span class="text-xs font-extrabold">${tr.icon} ${tr.title}</span><button onclick="redeemTreat('${tr.id}')" class="btn-amber-tactical px-3 py-1 rounded text-xs font-extrabold">Canjear</button></div>`).join('');
+      document.getElementById('claimedTreatsList').innerHTML = (g.claimedTreats || []).map(c => `<div class="flex justify-between items-center px-3 py-2 rounded border-2 bg-white"><span class="text-xs font-bold ${c.used ? 'line-through text-gray-400' : ''}">${c.icon} ${c.title}</span><button onclick="toggleClaimedTreatUsed('${c.claimId}')" class="btn-sand px-2 py-1 rounded text-xs">${c.used ? 'Reabrir' : '✅ Hecho'}</button></div>`).join('') || '<p class="text-xs italic">Ningún permiso reclamado.</p>';
+      document.getElementById('treatsModal').classList.remove('hidden'); document.getElementById('treatsModal').classList.add('flex');
     }
+    function closeTreatsModal() { document.getElementById('treatsModal').classList.add('hidden'); document.getElementById('treatsModal').classList.remove('flex'); }
 
     function addCustomTreat() {
-      const icon = document.getElementById('newTreatIcon').value;
-      const titleInput = document.getElementById('newTreatTitle');
-      const title = titleInput.value.trim();
-      if (!title) {
-        showToast('⚠️ Escribe la descripción del capricho');
-        return;
-      }
-      state.treatsCatalog.unshift({
-        id: 'tr_' + Date.now(),
-        icon,
-        title
-      });
-      titleInput.value = '';
-      saveState();
-      renderTreatsModalContent();
-      showToast('🎁 ¡Nuevo capricho registrado en la lista!');
+      const title = document.getElementById('newTreatTitle').value.trim();
+      if (!title) return;
+      state.treatsCatalog.unshift({ id: 'tr_' + Date.now(), icon: document.getElementById('newTreatIcon').value, title });
+      document.getElementById('newTreatTitle').value = '';
+      saveState(); openTreatsModal(activeTreatsGuardianId); showToast('🎁 Capricho añadido');
     }
-
-    function removeCatalogTreat(treatId) {
-      state.treatsCatalog = state.treatsCatalog.filter(t => t.id !== treatId);
-      saveState();
-      renderTreatsModalContent();
-    }
-
-    function redeemTreat(treatId) {
+    function redeemTreat(id) {
       const g = state.guardians.find(x => x.id === activeTreatsGuardianId);
-      const tr = state.treatsCatalog.find(t => t.id === treatId);
-      if (!g || !tr) return;
-
-      if ((g.monthTokens || 0) <= 0) {
-        showToast('🔒 Necesitas 1 Pase de Permiso (🎟️). Se obtiene al culminar el mes con ambas barras al 100%.');
-        return;
-      }
-
+      const tr = state.treatsCatalog.find(x => x.id === id);
+      if (!g || !tr || (g.monthTokens || 0) <= 0) { showToast('🔒 Pases insuficientes'); return; }
       g.monthTokens -= 1;
-      g.claimedTreats.unshift({
-        claimId: 'cl_' + Date.now(),
-        icon: tr.icon,
-        title: tr.title,
-        used: false
-      });
-
-      saveState();
-      renderTreatsModalContent();
-      renderGuardians();
-      showToast(`🎁 ¡Has canjeado "${tr.title}"! Queda activo en tu expediente hasta que lo disfrutéis.`);
+      g.claimedTreats.unshift({ claimId: 'cl_' + Date.now(), icon: tr.icon, title: tr.title, used: false });
+      saveState(); openTreatsModal(g.id); renderGuardians(); showToast('🎁 ¡Permiso canjeado!');
     }
-
-    function toggleClaimedTreatUsed(claimId) {
+    function toggleClaimedTreatUsed(cId) {
       const g = state.guardians.find(x => x.id === activeTreatsGuardianId);
-      if (!g) return;
-      const item = (g.claimedTreats || []).find(c => c.claimId === claimId);
+      const item = (g.claimedTreats || []).find(x => x.claimId === cId);
       if (item) item.used = !item.used;
-      saveState();
-      renderTreatsModalContent();
-      renderGuardians();
+      saveState(); openTreatsModal(g.id);
     }
 
-    // SINCRONIZACIÓN MULTIJUGADOR EN LÍNEA
-    function openCastleSyncModal() {
-      document.getElementById('roomCodeInput').value = state.roomCode || '';
-      const m = document.getElementById('castleSyncModal');
-      m.classList.remove('hidden');
-      m.classList.add('flex');
-    }
-
-    function closeCastleSyncModal() {
-      const m = document.getElementById('castleSyncModal');
-      m.classList.add('hidden');
-      m.classList.remove('flex');
-    }
-
+    function openCastleSyncModal() { document.getElementById('roomCodeInput').value = state.roomCode || ''; document.getElementById('castleSyncModal').classList.remove('hidden'); document.getElementById('castleSyncModal').classList.add('flex'); }
+    function closeCastleSyncModal() { document.getElementById('castleSyncModal').classList.add('hidden'); document.getElementById('castleSyncModal').classList.remove('flex'); }
     function copyInviteLink() {
       try {
         const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(state))));
-        const baseUrl = window.location.origin + window.location.pathname;
-        const fullLink = `${baseUrl}?castle=${encodeURIComponent(encoded)}`;
-        navigator.clipboard.writeText(fullLink);
-        showToast('🔗 ¡Enlace copiado! Pégalo en WhatsApp.');
-      } catch (e) {
-        showToast('⚠️ Usa el Código de Frecuencia para sincronizar.');
-      }
+        navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}?castle=${encodeURIComponent(encoded)}`);
+        showToast('🔗 Enlace copiado.');
+      } catch (e) { showToast('⚠️ Error al copiar.'); }
     }
-
     async function createNewCloudRoom() {
       const code = 'FORT-' + Math.floor(1000 + Math.random() * 9000);
-      state.roomCode = code;
-      document.getElementById('roomCodeInput').value = code;
-      saveState(true);
-      renderAll();
-      showToast(`📻 ¡Frecuencia ${code} creada! Comparte este código con tu pareja.`);
+      state.roomCode = code; document.getElementById('roomCodeInput').value = code;
+      saveState(true); renderAll(); showToast(`📻 Frecuencia ${code} creada.`);
     }
-
     async function joinCloudRoom() {
       const code = document.getElementById('roomCodeInput').value.trim().toUpperCase();
-      if (!code) {
-        showToast('⚠️ Escribe un código de Sala (ej: FORT-1234)');
-        return;
-      }
-      state.roomCode = code;
-      await pullFromCloudRoom(code);
-      closeCastleSyncModal();
+      if (!code) return;
+      state.roomCode = code; await pullFromCloudRoom(code); closeCastleSyncModal();
     }
-
-    async function pushToCloudRoom(code) {
-      try {
-        await fetch(CLOUD_API_BASE + encodeURIComponent(code), {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(state)
-        });
-      } catch (e) {}
-    }
-
     async function pullFromCloudRoom(code) {
       try {
         const res = await fetch(CLOUD_API_BASE + encodeURIComponent(code));
         if (res.ok) {
           const remote = await res.json();
-          if (remote && Array.isArray(remote.guardians)) {
-            state = sanitizeState(remote);
-            state.roomCode = code;
-            saveState(false);
-            renderAll();
-            showToast(`🔄 ¡Base ${code} sincronizada con éxito!`);
-            return;
-          }
+          if (remote && Array.isArray(remote.guardians)) { state = sanitizeState(remote); state.roomCode = code; saveState(false); renderAll(); showToast(`🔄 Sincronizado con ${code}`); return; }
         }
-        await pushToCloudRoom(code);
-        renderAll();
-        showToast(`📻 Frecuencia ${code} vinculada y guardada.`);
-      } catch (e) {
-        renderAll();
-        showToast(`📻 Frecuencia ${code} guardada localmente.`);
-      }
+        await fetch(CLOUD_API_BASE + encodeURIComponent(code), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) });
+        renderAll(); showToast(`📻 Frecuencia ${code} guardada.`);
+      } catch (e) { renderAll(); showToast(`📻 Frecuencia local.`); }
     }
-
-    async function syncNow() {
-      if (!state.roomCode) {
-        openCastleSyncModal();
-        return;
-      }
+    async function forceTransmitCloud() {
+      if (!state.roomCode) { openCastleSyncModal(); return; }
+      try {
+        await fetch(CLOUD_API_BASE + encodeURIComponent(state.roomCode), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) });
+        showToast(`📡 Informe transmitido a la frecuencia ${state.roomCode}`);
+      } catch(e) { showToast('⚠️ Error al transmitir.'); }
+    }
+    async function forceReceiveCloud() {
+      if (!state.roomCode) { openCastleSyncModal(); return; }
       await pullFromCloudRoom(state.roomCode);
     }
-
-    function resetApp() {
-      localStorage.removeItem(STORAGE_KEY);
-      state = sanitizeState(JSON.parse(JSON.stringify(DEFAULT_STATE)));
-      saveState(false);
-      renderAll();
-      closeCastleSyncModal();
-      showToast('🔄 Cuartel General restaurado a los valores iniciales.');
-    }
+    function resetApp() { localStorage.removeItem(STORAGE_KEY); state = sanitizeState(JSON.parse(JSON.stringify(DEFAULT_STATE))); saveState(false); renderAll(); closeCastleSyncModal(); showToast('🔄 Reiniciado.'); }
 
     renderAll();
   </script>
