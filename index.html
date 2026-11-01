@@ -117,12 +117,6 @@
           📻 Frecuencia: LOCAL
         </button>
         <div class="flex items-center gap-1.5">
-          <button onclick="forceReceiveCloud()" title="Recibir Transmisión de la Nube" class="btn-amber-tactical px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
-            <span>📥</span> <span class="hidden sm:inline">Recibir</span>
-          </button>
-          <button onclick="forceTransmitCloud()" title="Transmitir Informe a la Nube" class="btn-army px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
-            <span>📡</span> <span class="hidden sm:inline">Transmitir</span>
-          </button>
           <button onclick="openChronicleModal()" class="btn-sand px-2.5 py-1 rounded text-xs font-extrabold flex items-center gap-1 cursor-pointer uppercase">
             <span>⏱️</span> <span id="headerCycleShort">Sem. #1</span>
           </button>
@@ -408,15 +402,16 @@
     </div>
   </div>
 
-  <!-- MODAL: RADIO / LÍNEA -->
+  <!-- MODAL: RADIO / LÍNEA (SALA) -->
   <div id="castleSyncModal" class="fixed inset-0 modal-bg z-50 hidden items-center justify-center p-4">
     <div class="tactical-canvas rounded-2xl max-w-lg w-full p-6 space-y-5 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b-2 border-[#8c7f67] pb-2">
-        <h3 class="font-military text-xl text-[#253317] uppercase">📻 Radio de Sincronización</h3>
+        <h3 class="font-military text-xl text-[#253317] uppercase">📻 Radio de Sincronización (Sala)</h3>
         <button onclick="closeCastleSyncModal()" class="text-[#3a2618] hover:text-red-700 text-xl font-extrabold cursor-pointer">✕</button>
       </div>
+      
       <div class="bg-[#e4dbc6] border-2 border-[#8c7f67] rounded-xl p-4 space-y-3">
-        <p class="text-xs text-[#3a2618] font-medium">Crea una frecuencia (ej. <code>FORT-8391</code>) y compártela con tu pareja para sincronizar en tiempo real.</p>
+        <p class="text-xs text-[#3a2618] font-medium">Introduce vuestro código de frecuencia compartido (ej. <code>FORT-8391</code>) para conectar ambos móviles.</p>
         <div class="flex gap-2">
           <input id="roomCodeInput" type="text" placeholder="Código (ej: FORT-8391)" class="flex-1 px-3.5 py-2 rounded-lg bg-white border-2 border-[#8c7f67] font-mono font-extrabold text-sm uppercase" />
           <button onclick="joinCloudRoom()" class="btn-army px-4 py-2 rounded-lg font-extrabold text-xs cursor-pointer">Vincular</button>
@@ -426,8 +421,30 @@
           <button onclick="resetApp()" class="text-xs text-red-800 underline font-bold cursor-pointer">🗑️ Reiniciar</button>
         </div>
       </div>
+
+      <!-- BOTONES DE TRANSMISIÓN Y RECEPCIÓN CLAROS DENTRO DE LA SALA -->
       <div class="bg-[#e4dbc6] border-2 border-[#8c7f67] rounded-xl p-4 space-y-3">
-        <button onclick="copyInviteLink()" class="btn-amber-tactical w-full py-2.5 rounded-lg font-extrabold text-xs cursor-pointer">🔗 Copiar Enlace de Invitación</button>
+        <h4 class="text-xs font-extrabold uppercase text-[#253317]">📡 Controles de Transmisión Manual</h4>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <button onclick="forceTransmitCloud()" class="btn-army p-3 rounded-xl text-left flex flex-col gap-1 cursor-pointer">
+            <div class="flex items-center gap-1.5 font-extrabold text-xs"><span>📡</span> <span>Transmitir (Subir)</span></div>
+            <div class="text-[10px] text-[#dfd5c0] font-medium">Envía tus cambios actuales a la nube para que tu pareja los vea.</div>
+          </button>
+
+          <button onclick="forceReceiveCloud()" class="btn-amber-tactical p-3 rounded-xl text-left flex flex-col gap-1 cursor-pointer">
+            <div class="flex items-center gap-1.5 font-extrabold text-xs"><span>📥</span> <span>Recibir (Bajar)</span></div>
+            <div class="text-[10px] text-[#fffbeb] font-medium">Descarga lo último que haya guardado tu pareja en la nube.</div>
+          </button>
+        </div>
+
+        <div class="pt-2 border-t border-[#b8ad96]">
+          <button onclick="copyInviteLink()" class="btn-sand w-full py-2 rounded-lg font-extrabold text-xs cursor-pointer">🔗 Copiar Enlace de Invitación</button>
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2 border-t-2 border-[#8c7f67]">
+        <button onclick="closeCastleSyncModal()" class="btn-army px-5 py-2 rounded-lg text-xs font-extrabold uppercase cursor-pointer">Cerrar</button>
       </div>
     </div>
   </div>
@@ -1023,11 +1040,13 @@
       try {
         await fetch(CLOUD_API_BASE + encodeURIComponent(state.roomCode), { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) });
         showToast(`📡 Informe transmitido a la frecuencia ${state.roomCode}`);
+        closeCastleSyncModal();
       } catch(e) { showToast('⚠️ Error al transmitir.'); }
     }
     async function forceReceiveCloud() {
       if (!state.roomCode) { openCastleSyncModal(); return; }
       await pullFromCloudRoom(state.roomCode);
+      closeCastleSyncModal();
     }
     function resetApp() { localStorage.removeItem(STORAGE_KEY); state = sanitizeState(JSON.parse(JSON.stringify(DEFAULT_STATE))); saveState(false); renderAll(); closeCastleSyncModal(); showToast('🔄 Reiniciado.'); }
 
